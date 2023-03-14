@@ -16,11 +16,11 @@ const AuthPage = () => {
         <div style={styles.formContainerStyle}>
           <div style={styles.titleStyle}>Pretty</div>
 
-          {hasAccount ? (
+          {/* {hasAccount ? (
             <LogInForm onHasNoAccount={() => setHasAccount(false)} />
           ) : (
             <SignUpForm onHasAccount={() => setHasAccount(true)} />
-          )}
+          )} */}
         </div>
         
       </div>
