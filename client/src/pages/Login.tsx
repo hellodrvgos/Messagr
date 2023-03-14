@@ -2,7 +2,7 @@ import { CSSProperties, useState } from "react";
 
 import valley from "../assets/valley.jpeg";
 import SignUpForm from "../components/AuthPage/SignUpForm";
-import LogInForm from "../components/AuthPage/LoginForm";
+import LogInForm from "../components/AuthPage/LogInForm";
 
 const AuthPage = () => {
   const [hasAccount, setHasAccount] = useState(false);
@@ -17,11 +17,11 @@ const AuthPage = () => {
         <div style={styles.formContainerStyle}>
           <div style={styles.titleStyle}>Pretty</div>
 
-          {hasAccount ? (
+          {/* {hasAccount ? (
             <LogInForm onHasNoAccount={() => setHasAccount(false)} />
           ) : (
             <SignUpForm onHasAccount={() => setHasAccount(true)} />
-          )}
+          )} */}
         </div>
       </div>
     </div>
