@@ -1,4 +1,5 @@
 import { CSSProperties, useState } from "react";
+import valley from "../assets/valley.jpeg";
 import SignUpForm from "../components/AuthPage/SignUpForm";
 import LogInForm from "../components/AuthPage/LogInForm";
 
@@ -6,7 +7,7 @@ const AuthPage = () => {
   const [hasAccount, setHasAccount] = useState(false);
 
   const backgroundImage = {
-    backgroundColor: `#f7f7f7`, // Here due to variable
+    backgroundImage: `url(${valley})`, // Here due to variable
   } as CSSProperties;
 
   return (
