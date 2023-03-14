@@ -4,7 +4,7 @@ import * as io from "socket.io-client";
 import Chat from "./Chat";
 
 //Dragos
-
+//Ataklti
 const socket = io.connect("http://localhost:8001");
 
 export default function HomePage() {
