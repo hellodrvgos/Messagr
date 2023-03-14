@@ -3,6 +3,8 @@ import { useState } from "react";
 import * as io from "socket.io-client";
 import Chat from "./Chat";
 
+//Dragos
+
 const socket = io.connect("http://localhost:8001");
 
 export default function HomePage() {
