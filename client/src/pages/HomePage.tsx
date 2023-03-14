@@ -5,6 +5,7 @@ import Chat from "./Chat";
 
 //Dragos
 //Ataklti
+//Mayuri
 const socket = io.connect("http://localhost:8001");
 
 export default function HomePage() {
