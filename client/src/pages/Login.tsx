@@ -1,14 +1,12 @@
 import { CSSProperties, useState } from "react";
-
-import valley from "../assets/valley.jpeg";
 import SignUpForm from "../components/AuthPage/SignUpForm";
-import LogInForm from "../components/AuthPage/LoginForm";
+import LogInForm from "../components/AuthPage/LogInForm";
 
 const AuthPage = () => {
   const [hasAccount, setHasAccount] = useState(false);
 
   const backgroundImage = {
-    backgroundImage: `url(${valley})`, // Here due to variable
+    backgroundColor: `#f7f7f7`, // Here due to variable
   } as CSSProperties;
 
   return (
@@ -23,6 +21,7 @@ const AuthPage = () => {
             <SignUpForm onHasAccount={() => setHasAccount(true)} />
           )}
         </div>
+        
       </div>
     </div>
   );
@@ -33,6 +32,7 @@ const styles = {
     width: "100%",
     maxWidth: "650px",
     padding: "36px 72px",
+    backgroundColor : "white"
   } as CSSProperties,
   titleStyle: {
     fontSize: "24px",
