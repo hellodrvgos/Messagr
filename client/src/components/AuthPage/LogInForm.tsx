@@ -31,7 +31,7 @@ const LogInForm = (props: LogInFormProps) => {
     };
 
     axios
-      .get("http://localhost:8005/users/me/", {
+      .get("http://localhost:8002/users/me/", {
         headers,
       })
       .then((r) => {
