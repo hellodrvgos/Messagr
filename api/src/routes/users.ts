@@ -13,7 +13,9 @@ router.post("/register", createUserController);
 router.post("/login", loginWithPasswordController);
 router.get(
   "/",
-  passport.authenticate("jwt", { session: false }),
+
+  // passport.authenticate("jwt", { session: false }),
+
   getUserListController
 );
 

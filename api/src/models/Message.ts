@@ -16,9 +16,14 @@ const MessageSchema = new mongoose.Schema(
       required: true,
     },
     author: {
-      firstName: String,
-      lastName: String,
-      required: true,
+      firstName: {
+        type: String,
+        required: true,
+      },
+      lastName: {
+        type: String,
+        required: true,
+      },
     },
     message: {
       type: String,
