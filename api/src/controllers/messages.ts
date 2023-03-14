@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import MessageServices from "../services/messages";
+
 import Message from "../models/Message";
+import MessageServices from "../services/messages";
 
 export const createMessageController = async (req: Request, res: Response) => {
   try {
@@ -10,8 +11,8 @@ export const createMessageController = async (req: Request, res: Response) => {
       author: {
         firstName: firstName,
         lastName: lastName,
-        message: message,
       },
+      message: message,
     });
     const msg = await MessageServices.createMessage(newMessage);
     res.status(200).json(msg);
