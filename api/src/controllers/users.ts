@@ -116,6 +116,22 @@ export const googleAuthenticate = async (
   }
 };
 
+export const displayUserInformationController =  async (
+  req: Request,
+  res: Response
+) => {
+  try {
+      const userData = await UserServices.findUserById(req.params.id);
+      if (!userData) {
+          res.json({message: `No user with id ${req.params.id}`});
+          return;
+      }
+      res.json(userData);
+  } catch (error) {
+      console.log(error);
+  }
+}
+
 export const updateUserDetailController = async (
   req: Request,
   res: Response
