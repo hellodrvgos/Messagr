@@ -1,4 +1,6 @@
 import { Formik, Form } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
 import * as Yup from "yup";
 import {
   Button,
@@ -14,23 +16,12 @@ import axios from "axios";
 
 import "./UpdateProfileForm.css";
 
-import { RootState, AppDispatch } from "../../../../redux/store"
+import { RootState, AppDispatch } from "../../../../redux/store";
 import { getUserInformation } from "../../../../redux/thunk/userInformation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 export default function UpdateProfileForm() {
-
-  const userId = localStorage.getItem("id") || "{}";
-
-  const dispatch = useDispatch<AppDispatch>();
-
-  //useEffect(() => {
-      //dispatch(getUserInformation());
-  //}, [dispatch]);
-
-  const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
-  console.log(userInfoDetails, "userInfo")
   //  get user id from redux
   const navigate = useNavigate();
   // type
@@ -56,21 +47,25 @@ export default function UpdateProfileForm() {
     avatar: `${userInfoDetails.avatar}`,
   };
 
-const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-const updateUserUrl = `http://localhost:8002/users/${userId}`;
+  const updateUserUrl = `http://localhost:8002/users/${userId}`;
 
-function updateUsersData(values: InitialValues) {
-    axios.put(updateUserUrl, {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      location: values.location,
-      phone: values.phone,
-      role: values.role,
-      github: values.gitHub,
-      avatar: values.avatar
-    }, {headers: {Authorization: `Bearer ${token}`}});
+  function updateUsersData(values: InitialValues) {
+    axios.put(
+      updateUserUrl,
+      {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        location: values.location,
+        phone: values.phone,
+        role: values.role,
+        github: values.gitHub,
+        avatar: values.avatar,
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
   }
 
   // schema
@@ -87,31 +82,29 @@ function updateUsersData(values: InitialValues) {
     email: Yup.string().email("Invalid email"),
   });
 
-
   return (
     <div className="login-page-update">
       <div className="form-container">
         <Formik
           initialValues={initialValues}
-          // validationSchema={FormSchema}
-          // onSubmit={(values) => {
-          //   console.log(values, "values");
-          //   //   const userData = JSON.parse(localStorage.getItem("userDetail")!);
-          //   //   const token = userData.token;
-          //   //    const url = `http://localhost:8002/users/${userId}`;
-          //   //   axios
-          //   //     .put(url, values, {
-          //   //       headers: { Authorization: `Bearer ${token} ` },
-          //   //     })
-          //   //     .then((response) =>
-          //   //       localStorage.setItem(
-          //   //         "updatedDetail",
-          //   //         JSON.stringify(response.data)
-          //   //       )
-          //   //     );
-          //   //   navigate(`/success`);
-          // }}
-          onSubmit = {updateUsersData}
+          validationSchema={FormSchema}
+          onSubmit={(values) => {
+            console.log(values, "values");
+            //   const userData = JSON.parse(localStorage.getItem("userDetail")!);
+            //   const token = userData.token;
+            //    const url = `http://localhost:8002/users/${userId}`;
+            //   axios
+            //     .put(url, values, {
+            //       headers: { Authorization: `Bearer ${token} ` },
+            //     })
+            //     .then((response) =>
+            //       localStorage.setItem(
+            //         "updatedDetail",
+            //         JSON.stringify(response.data)
+            //       )
+            //     );
+            //   navigate(`/success`);
+          }}
         >
           {({ errors, touched, handleChange }) => {
             return (
