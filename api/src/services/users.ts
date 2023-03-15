@@ -34,11 +34,18 @@ const createOrFindUserByEmail = async (
     return user.save();
   }
 };
-
+// update user information
+const updateUserDetail = async (
+  userId: string,
+  update: Partial<UserDocument>
+): Promise<UserDocument | null> => {
+  return User.findByIdAndUpdate(userId, update, { new: true });
+};
 export default {
   createUser,
   findUserByEmail,
   findUserById,
   getUserList,
   createOrFindUserByEmail,
+  updateUserDetail,
 };

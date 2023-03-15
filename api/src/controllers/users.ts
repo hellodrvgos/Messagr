@@ -115,3 +115,35 @@ export const googleAuthenticate = async (
     console.log(error);
   }
 };
+
+export const updateUserDetailController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const userId = req.params.userId;
+    let password = req.body.password;
+
+    if (password) {
+      // hash password
+      const saltRounds = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      password = hashedPassword;
+      const newDetail = { ...req.body, password };
+      const updatedDetail = await UserServices.updateUserDetail(
+        userId,
+        newDetail
+      );
+      res.status(200).json(updatedDetail);
+    } else {
+      const newDetail = req.body;
+      const updateDetail = await UserServices.updateUserDetail(
+        userId,
+        newDetail
+      );
+      res.status(200).json(updateDetail);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
