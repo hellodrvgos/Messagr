@@ -4,7 +4,7 @@ import { userActions } from '../slice/userSlice';
 
 export default function fetchUsersData(){
     
-    const url = `http://localhost:8000/users`;
+    const url = `http://localhost:8002/users`;
     return (dispatch: AppDispatch) => {
         axios.get(url)
         .then((res)=> res.data)

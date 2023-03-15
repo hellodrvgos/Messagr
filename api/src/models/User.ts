@@ -11,7 +11,7 @@ export type UserDocument = Document & {
   role: string;
   location: string;
   github: string;
-  phone: number;
+  phone: string;
 };
 
 const UserSchema = new mongoose.Schema({
@@ -26,17 +26,18 @@ const UserSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
+    required: true,
   },
   lastName: {
     type: String,
   },
   isAdmin: {
     type: Boolean,
-    required: true,
     default: false
   },
   isBanned: {
     type: Boolean,
+    default: false
   },
   avatar: {
     type: String,
@@ -51,7 +52,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   phone: {
-    type: Number,
+    type: String,
   },
 });
 
