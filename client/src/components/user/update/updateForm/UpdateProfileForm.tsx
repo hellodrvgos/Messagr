@@ -14,7 +14,23 @@ import axios from "axios";
 
 import "./UpdateProfileForm.css";
 
+import { RootState, AppDispatch } from "../../../../redux/store"
+import { getUserInformation } from "../../../../redux/thunk/userInformation";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+
 export default function UpdateProfileForm() {
+
+  const userId = localStorage.getItem("id") || "{}";
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+      dispatch(getUserInformation(userId));
+  }, [dispatch, userId]);
+
+  const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
+console.log(userInfoDetails, "userInfo")
   //  get user id from redux
   const navigate = useNavigate();
   // type
@@ -22,56 +38,72 @@ export default function UpdateProfileForm() {
     firstName: string;
     lastName: string;
     email: string;
-    password: string;
     location: string;
-    phone: number;
+    phone: string;
     role: string;
     gitHub: string;
     avatar: string;
   };
   // initial values
   const initialValues: InitialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    location: "",
-    phone: 1,
-    role: "",
-    gitHub: "",
-    avatar: "",
+    firstName: `${userInfoDetails.firstName}`,
+    lastName: `${userInfoDetails.lastName}`,
+    email: `${userInfoDetails.email}`,
+    location: `${userInfoDetails.location}`,
+    phone: `${userInfoDetails.phone}`,
+    role: `${userInfoDetails.role}`,
+    gitHub: `${userInfoDetails.github}`,
+    avatar: `${userInfoDetails.avatar}`,
   };
 
+const token = localStorage.getItem("token");
+
+const updateUserUrl = `http://localhost:8002/users/${userId}`;
+
+function updateUsersData(values: InitialValues) {
+    axios.put(updateUserUrl, {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      location: values.location,
+      phone: values.phone,
+      role: values.role,
+      github: values.gitHub,
+      avatar: values.avatar
+    }, {headers: {Authorization: `Bearer ${token}`}});
+  }
+
   // schema
-  const FormSchema = Yup.object().shape({
-    firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    email: Yup.string().email("Invalid email").required("Required"),
-  });
+  // const FormSchema = Yup.object().shape({
+  //   firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
+  //   lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
+  //   email: Yup.string().email("Invalid email").required("Required"),
+  // });
 
   return (
     <div className="login-page-update">
       <div className="form-container">
         <Formik
           initialValues={initialValues}
-          validationSchema={FormSchema}
-          onSubmit={(values) => {
-            console.log(values, "values");
-            //   const userData = JSON.parse(localStorage.getItem("userDetail")!);
-            //   const token = userData.token;
-            //    const url = `http://localhost:8002/users/${userId}`;
-            //   axios
-            //     .put(url, values, {
-            //       headers: { Authorization: `Bearer ${token} ` },
-            //     })
-            //     .then((response) =>
-            //       localStorage.setItem(
-            //         "updatedDetail",
-            //         JSON.stringify(response.data)
-            //       )
-            //     );
-            //   navigate(`/success`);
-          }}
+          // validationSchema={FormSchema}
+          // onSubmit={(values) => {
+          //   console.log(values, "values");
+          //   //   const userData = JSON.parse(localStorage.getItem("userDetail")!);
+          //   //   const token = userData.token;
+          //   //    const url = `http://localhost:8002/users/${userId}`;
+          //   //   axios
+          //   //     .put(url, values, {
+          //   //       headers: { Authorization: `Bearer ${token} ` },
+          //   //     })
+          //   //     .then((response) =>
+          //   //       localStorage.setItem(
+          //   //         "updatedDetail",
+          //   //         JSON.stringify(response.data)
+          //   //       )
+          //   //     );
+          //   //   navigate(`/success`);
+          // }}
+          onSubmit = {updateUsersData}
         >
           {({ errors, touched, handleChange }) => {
             return (
@@ -95,6 +127,7 @@ export default function UpdateProfileForm() {
                         <TextField
                           label="firstName"
                           name="firstName"
+                          defaultValue={userInfoDetails.firstName}
                           onChange={handleChange}
                           sx={{ mt: 5, width: 250, fontSize: "10px" }}
                           size="small"
@@ -105,6 +138,7 @@ export default function UpdateProfileForm() {
                         <TextField
                           label="lastName"
                           name="lastName"
+                          defaultValue={userInfoDetails.lastName}
                           sx={{ mt: 1, width: 250 }}
                           onChange={handleChange}
                           size="small"
@@ -116,6 +150,7 @@ export default function UpdateProfileForm() {
                         <TextField
                           label="Email"
                           name="email"
+                          defaultValue={userInfoDetails.email}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
@@ -136,6 +171,7 @@ export default function UpdateProfileForm() {
                         <TextField
                           label="Location"
                           name="location"
+                          defaultValue={userInfoDetails.location}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
@@ -145,6 +181,7 @@ export default function UpdateProfileForm() {
                         <TextField
                           label="role"
                           name="role"
+                          defaultValue={userInfoDetails.role}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
@@ -152,6 +189,7 @@ export default function UpdateProfileForm() {
                         <TextField
                           label="gitHub"
                           name="gitHub"
+                          defaultValue={userInfoDetails.github}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
@@ -159,6 +197,7 @@ export default function UpdateProfileForm() {
                         <TextField
                           label="phonenumber"
                           name="phonenumber"
+                          defaultValue={userInfoDetails.phone}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
@@ -166,6 +205,7 @@ export default function UpdateProfileForm() {
                         <TextField
                           label="avatar"
                           name="avatar"
+                          defaultValue={userInfoDetails.avatar}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"

@@ -3,10 +3,6 @@ import dotenv from "dotenv";
 
 import app from "./app";
 
-// //soscketio
-// import http from "http";
-// import { Server } from "socket.io";
-
 dotenv.config();
 
 const port = 8002;

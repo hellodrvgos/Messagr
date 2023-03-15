@@ -29,7 +29,7 @@ export default function LoginForm() {
     password: ""
   }
 
-  const loginUrl = "http://localhost:8000/users/login";
+  const loginUrl = "http://localhost:8002/users/login";
 
   const navigate = useNavigate();
 
