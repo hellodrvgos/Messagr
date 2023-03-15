@@ -10,6 +10,8 @@ import Update from "./pages/Update";
 import Chat from "./pages/Chat";
 import TopBar from "./components/navigation/TopBar";
 import UserRegister from "./pages/UserRegister";
+import UserProfilePage from "./pages/UserProfilePage";
+import UserList from "./components/user/userList/UserList";
 
 
 //Dragos
@@ -22,8 +24,10 @@ function App() {
         <Route path="" element={<HomePage />}></Route>
         <Route path="/login" element={<UserLogin />}></Route>
         <Route path="/register" element={<UserRegister/>}></Route>
+        <Route path="/profile" element={<UserProfilePage/>}></Route>
         <Route path="/update" element={<Update />}></Route>
         <Route path="/chat" element={<Chat/>}></Route>
+        <Route path="/user-list" element={<UserList/>}></Route>
       </Routes>
     </div>
   );

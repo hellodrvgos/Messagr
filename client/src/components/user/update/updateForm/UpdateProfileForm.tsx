@@ -25,12 +25,12 @@ export default function UpdateProfileForm() {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-      dispatch(getUserInformation(userId));
-  }, [dispatch, userId]);
+  //useEffect(() => {
+      //dispatch(getUserInformation());
+  //}, [dispatch]);
 
   const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
-console.log(userInfoDetails, "userInfo")
+  console.log(userInfoDetails, "userInfo")
   //  get user id from redux
   const navigate = useNavigate();
   // type
