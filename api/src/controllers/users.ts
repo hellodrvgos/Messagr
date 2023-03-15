@@ -1,9 +1,14 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-import User from "../models/User";
+import User, { UserDocument } from "../models/User";
 import UserServices from "../services/users";
 import generateToken from "../utils/generateToken";
+
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 export const createUserController = async (req: Request, res: Response) => {
   try {
@@ -80,6 +85,32 @@ export const getUserListController = async (req: Request, res: Response) => {
   try {
     const userList = await UserServices.getUserList();
     res.status(200).json(userList);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const googleAuthenticate = async (
+  request: Request,
+  response: Response
+) => {
+  try {
+    const userData = request.user as UserDocument;
+    if (!userData) {
+      response.json({ message: "User not found" });
+      return;
+    }
+    const token = jwt.sign(
+      {
+        email: request.body.email,
+        firstName: userData.firstName,
+      },
+      JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+    response.json({ token, userData });
   } catch (error) {
     console.log(error);
   }

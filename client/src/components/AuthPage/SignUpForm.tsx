@@ -55,7 +55,7 @@ const SignUpForm = (props: SignUpFormProps) => {
     const headers = { "Private-Key": privateKey };
 
     axios
-      .post("http://localhost:8005/users/register", formData, {
+      .post("http://localhost:8002/users/register", formData, {
         headers,
       })
       .then((r) => {

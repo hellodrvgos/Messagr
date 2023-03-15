@@ -17,4 +17,28 @@ const findUserById = async (id: string): Promise<UserDocument | null> => {
 const getUserList = async (): Promise<UserDocument[]> => {
   return User.find();
 };
-export default { createUser, findUserByEmail, findUserById, getUserList };
+// create or find user by email
+const createOrFindUserByEmail = async (
+  payload: Partial<UserDocument>
+): Promise<UserDocument | null> => {
+  const userEmail = payload.email;
+  const result = await User.findOne({ email: userEmail });
+  if (result) {
+    return result;
+  } else {
+    const user = new User({
+      firstName: payload.firstName,
+      lastName: payload.lastName,
+      email: payload.email,
+    });
+    return user.save();
+  }
+};
+
+export default {
+  createUser,
+  findUserByEmail,
+  findUserById,
+  getUserList,
+  createOrFindUserByEmail,
+};
