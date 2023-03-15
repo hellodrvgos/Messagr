@@ -46,7 +46,7 @@ export default function UpdateProfileForm() {
   const FormSchema = Yup.object().shape({
     firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
     lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    email: Yup.string().email("Invalid email").required("Required"),
+    email: Yup.string().email("Invalid email"),
   });
 
   return (
@@ -78,9 +78,9 @@ export default function UpdateProfileForm() {
               <Form>
                 <Paper
                   sx={{
-                    width: 650,
+                    width: 600,
                     mt: 10,
-                    height: 500,
+                    height: 550,
                     mb: 50,
                     borderRadius: 10,
                   }}
@@ -99,8 +99,11 @@ export default function UpdateProfileForm() {
                           sx={{ mt: 5, width: 250, fontSize: "10px" }}
                           size="small"
                         ></TextField>
-                        {errors.email && touched.email ? (
-                          <div className="error-message"> {errors.email}</div>
+                        {errors.firstName && touched.firstName ? (
+                          <div className="error-message">
+                            {" "}
+                            {errors.firstName}
+                          </div>
                         ) : null}
                         <TextField
                           label="lastName"
@@ -130,9 +133,6 @@ export default function UpdateProfileForm() {
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
                         ></TextField>
-                        {errors.email && touched.email ? (
-                          <div className="error-message"> {errors.email}</div>
-                        ) : null}
                         <TextField
                           label="Location"
                           name="location"
