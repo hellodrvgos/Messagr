@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import HomePage from "./pages/HomePage";
 import Login from "./pages/Login";
 import './App.css';
+import Chat from "./pages/Chat";
 
 //Dragos
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="" element={<HomePage/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
+        <Route path="/chat" element={<Chat/>}></Route>
       </Routes>
     </div>
   );
