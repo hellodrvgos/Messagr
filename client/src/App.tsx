@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 
 import "./App.css";
 import UserLogin from "./pages/UserLogin";
+import Update from "./pages/Update";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="" element={<HomePage />}></Route>
         <Route path="/login" element={<UserLogin />}></Route>
+        <Route path="/update" element={<Update />}></Route>
       </Routes>
     </div>
   );
