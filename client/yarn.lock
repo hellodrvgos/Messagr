@@ -2397,7 +2397,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:^5.11.12":
+"@mui/material@npm:^5.11.13":
   version: 5.11.13
   resolution: "@mui/material@npm:5.11.13"
   dependencies:
@@ -5008,7 +5008,7 @@ __metadata:
     "@emotion/react": ^11.10.6
     "@emotion/styled": ^11.10.6
     "@mui/icons-material": ^5.11.11
-    "@mui/material": ^5.11.12
+    "@mui/material": ^5.11.13
     "@react-oauth/google": ^0.8.0
     "@reduxjs/toolkit": ^1.9.3
     "@testing-library/jest-dom": ^5.14.1

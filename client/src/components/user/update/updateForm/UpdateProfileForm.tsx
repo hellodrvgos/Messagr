@@ -1,4 +1,6 @@
 import { Formik, Form } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
 import * as Yup from "yup";
 import {
   Button,
@@ -15,6 +17,9 @@ import axios from "axios";
 import "./UpdateProfileForm.css";
 
 export default function UpdateProfileForm() {
+  const userInfo = useSelector((state: RootState) => state.users.userDetail);
+  const userId = userInfo._id;
+  console.log(userId, "userId");
   //  get user id from redux
   const navigate = useNavigate();
   // type
@@ -57,7 +62,7 @@ export default function UpdateProfileForm() {
           validationSchema={FormSchema}
           onSubmit={(values) => {
             console.log(values, "values");
-            //   const userData = JSON.parse(localStorage.getItem("userDetail")!);
+
             //   const token = userData.token;
             //    const url = `http://localhost:8002/users/${userId}`;
             //   axios
