@@ -1,19 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-<<<<<<< HEAD
-import { User } from "../../types/types";
-
-type InitialState = {
-  userList: User[];
-  userDetail: User;
-};
-=======
 import { User} from "../../types/types";
 
 type InitialState ={
     userList: User[],
-}
->>>>>>> 713e355b70fca057c5636c5bdf0ddb4858d042c9
+    userDetail: {
+      _id: "",
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      isAdmin: false,
+      isBanned: false,
+      avatar: "",
+      role: "",
+      location: "",
+      github: "",
+      phone: 1,
+    },
+  };
 const initialState: InitialState = {
   userList: [],
   userDetail: {

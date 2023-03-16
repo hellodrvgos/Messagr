@@ -1,22 +1,38 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+//mui 
 import {
   Button,
   TextField,
   Paper,
   Typography,
   Divider,
-  Card,
   Box,
+  FormControlLabel,
+  Checkbox,
+  Link,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
-// import "./UpdateProfileForm.css";
+import Alert, { AlertColor } from "@mui/material/Alert";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
-  //  get user id from redux
-  const navigate = useNavigate();
+  // schema
+  const FormSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Invalid email")
+      .required("Please Enter your email"),
+    password: Yup.string()
+      .required("Please Enter your password")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/,
+        "Must Contain 6 Characters, One Uppercase, One Lowercase and One Number"
+      ),
+    firstName: Yup.string().required("Please Enter your First Name"),
+    lastName: Yup.string().required("Please Enter your Last Name"),
+  });
   // type
   type InitialValues = {
     firstName: string;
@@ -42,12 +58,45 @@ export default function RegisterForm() {
     avatar: "",
   };
 
-  // schema
-  const FormSchema = Yup.object().shape({
-    firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    email: Yup.string().email("Invalid email").required("Required"),
-  });
+  const registerUrl = "http://localhost:8002/users/register";
+
+  const navigate = useNavigate();
+
+  const [isShown, setIsShown] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState<AlertColor>("info");
+  const [avatar, setAvatar] = useState<File | undefined>(undefined);
+
+  const showAlert = (message: string) => {
+    setIsShown(true);
+    setAlertMessage(message);
+  };
+
+  function register(values: InitialValues) {
+    axios
+      .post(registerUrl, {
+        email: values.email,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+      })
+      .then((response) => response.data)
+      .then((data) => {
+        if (data.status !== "success") {
+          setAlertSeverity("warning");
+          showAlert(data.message);
+          setTimeout(() => {
+            setIsShown(false);
+          }, 2000);
+          return;
+        }
+        setAlertSeverity("success");
+        showAlert(data.message);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      });
+  }
 
   return (
     <div className="login-page-update">
@@ -55,23 +104,7 @@ export default function RegisterForm() {
         <Formik
           initialValues={initialValues}
           validationSchema={FormSchema}
-          onSubmit={(values) => {
-            console.log(values, "values");
-            //   const userData = JSON.parse(localStorage.getItem("userDetail")!);
-            //   const token = userData.token;
-            //    const url = `http://localhost:8002/users/${userId}`;
-            //   axios
-            //     .put(url, values, {
-            //       headers: { Authorization: `Bearer ${token} ` },
-            //     })
-            //     .then((response) =>
-            //       localStorage.setItem(
-            //         "updatedDetail",
-            //         JSON.stringify(response.data)
-            //       )
-            //     );
-            //   navigate(`/success`);
-          }}
+          onSubmit={register}
         >
           {({ errors, touched, handleChange }) => {
             return (
@@ -80,8 +113,8 @@ export default function RegisterForm() {
                   sx={{
                     width: 650,
                     mt: 10,
-                    height: 500,
-                    mb: 50,
+                    height: 550,
+                    mb: 5,
                     borderRadius: 10,
                   }}
                 >
@@ -96,7 +129,7 @@ export default function RegisterForm() {
                           label="firstName"
                           name="firstName"
                           onChange={handleChange}
-                          sx={{ mt: 5, width: 250, fontSize: "10px" }}
+                          sx={{ mt: 2, mb: 2, width: 250, fontSize: "10px" }}
                           size="small"
                         ></TextField>
                         {errors.email && touched.email ? (
@@ -105,7 +138,7 @@ export default function RegisterForm() {
                         <TextField
                           label="lastName"
                           name="lastName"
-                          sx={{ mt: 1, width: 250 }}
+                          sx={{ mt: 2, mb: 2, width: 250 }}
                           onChange={handleChange}
                           size="small"
                         />
@@ -124,8 +157,11 @@ export default function RegisterForm() {
                           <div className="error-message"> {errors.email}</div>
                         ) : null}
                         <TextField
+                          required
                           label="password"
+                          type="password"
                           name="password"
+                          autoComplete="new-password"
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
@@ -173,24 +209,36 @@ export default function RegisterForm() {
                       </div>
                     </div>
                   </div>
-                  <Button
-                    type="submit"
-                    sx={{
-                      width: "250px",
-                      height: "40px",
-                      mt: 1,
-                    }}
-                    variant="outlined"
-                  >
-                    Register
-                  </Button>
+                  <FormControlLabel
+                    control={
+                      <Checkbox value="allowExtraEmails" color="primary" />
+                    }
+                    label="Subscribe to Newsletter"
+                  />
+                  <div>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{
+                        width: "250px",
+                        height: "40px",
+                        mt: 1,
+                      }}
+                    >
+                      Register
+                    </Button>
+                  </div>
                 </Paper>
+                <Link href="/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
               </Form>
             );
           }}
         </Formik>
+        {isShown && <Alert severity={alertSeverity}>{alertMessage}</Alert>}
       </div>
-      <Box sx={{ mb: 50 }}></Box>
     </div>
   );
 }
