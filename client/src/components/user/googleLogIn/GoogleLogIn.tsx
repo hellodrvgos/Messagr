@@ -5,10 +5,9 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
 import { userActions } from "../../../redux/slice/userSlice";
 
-import { useNavigate } from "react-router-dom";
-
 import "./GoogleLogIn.css";
 import UserProfile from "../userProfile/UserProfile";
+import { useNavigate } from "react-router-dom";
 export default function GoogleLogIn() {
 
 

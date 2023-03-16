@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import HomePage from "./pages/HomePage";
-import Login from "./pages/Login";
 
 import "./App.css";
 import UserLogin from "./pages/UserLogin";
@@ -14,7 +13,6 @@ import UserProfilePage from "./pages/UserProfilePage";
 import UserList from "./components/user/userList/UserList";
 
 
-//Dragos
 function App() {
   return (
     <div className="App">
