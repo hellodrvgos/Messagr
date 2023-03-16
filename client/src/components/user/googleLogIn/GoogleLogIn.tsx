@@ -32,9 +32,9 @@ export default function GoogleLogIn() {
             navigate("/chat");
 
 
-            const data = response.data.userData;
-            dispatch(userActions.getUserDetail(data));
-            console.log(response.data.userData, "response from backend");
+            //const data = response.data.userData;
+            //dispatch(userActions.getUserInfo(data));
+            //console.log(response.data.userData, "response from backend");
 
           } else {
             console.log("no response");

@@ -9,7 +9,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
+import axios from "axios"
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "../../../redux/store";
@@ -18,6 +19,9 @@ import fetchUsersData from "../../../redux/thunk/userThunk";
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 import BlockIcon from '@mui/icons-material/Block';
+import { IconButton } from '@mui/material';
+import { User } from '../../../types/types';
+import UserItem from '../userItem/UserItem';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,21 +33,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-
 export default function UserListTable() {
 
     const userList = useSelector((state: RootState)=> state.users.userList);
-    //console.log(userList,"uerLisrt")
+    const userInfo = useSelector((state: RootState)=> state.userinformation.userInfo);
+    const filteredUserList= userList.filter((user)=> user.email !== userInfo.email);
+    
     const dispatch = useDispatch<AppDispatch>();
     useEffect(()=>{
         dispatch(fetchUsersData())
@@ -61,19 +56,11 @@ export default function UserListTable() {
             <StyledTableCell align="right">Banned</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {userList.map((user) => (
-            <StyledTableRow key={user.email}>
-              <StyledTableCell component="th" scope="row">
-                {user.firstName}
-              </StyledTableCell>
-              <StyledTableCell align="right">{user.role}</StyledTableCell>
-              <StyledTableCell align="right">{user.email}</StyledTableCell>
-              <StyledTableCell align="right"><SupervisorAccountIcon/></StyledTableCell>
-              <StyledTableCell align="right"><BlockIcon/></StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
+        {filteredUserList.map((user)=>{
+          return <div>
+            <UserItem user={user}/>
+            </div>
+        })}
       </Table>
     </TableContainer>
   );
