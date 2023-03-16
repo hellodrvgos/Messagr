@@ -40,7 +40,7 @@ export default function RegisterForm() {
     email: string;
     password: string;
     location: string;
-    phone: number;
+    phone: string;
     role: string;
     gitHub: string;
     avatar: string;
@@ -52,7 +52,7 @@ export default function RegisterForm() {
     email: "",
     password: "",
     location: "",
-    phone: 1,
+    phone: "",
     role: "",
     gitHub: "",
     avatar: "",
@@ -126,6 +126,7 @@ export default function RegisterForm() {
                     <div className="form-field">
                       <div className="first-column">
                         <TextField
+                        required
                           label="firstName"
                           name="firstName"
                           onChange={handleChange}
@@ -136,6 +137,7 @@ export default function RegisterForm() {
                           <div className="error-message"> {errors.email}</div>
                         ) : null}
                         <TextField
+                        required
                           label="lastName"
                           name="lastName"
                           sx={{ mt: 2, mb: 2, width: 250 }}
@@ -147,6 +149,7 @@ export default function RegisterForm() {
                         ) : null}
 
                         <TextField
+                        required
                           label="Email"
                           name="email"
                           onChange={handleChange}

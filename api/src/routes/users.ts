@@ -31,12 +31,11 @@ router.put(
 
 router.get(
   "/",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   getUserListController
 );
 
-// router.get("/:id", passport.authenticate("jwt", {session: false}), displayUserInformationController);
-router.get("/:id", displayUserInformationController);
+router.get("/:id", passport.authenticate("jwt", {session: false}), displayUserInformationController);
 
 //chatengine
 router.post("/loginChat", async (req, res) => {
