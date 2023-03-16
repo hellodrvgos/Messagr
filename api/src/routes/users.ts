@@ -31,7 +31,7 @@ router.put(
 
 router.get(
   "/",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   getUserListController
 );
 

@@ -1,11 +1,8 @@
-import UserProfile from "../components/user/userProfile/UserProfile";
-
-export default function UserProfilePage() {
-
-    return (
-      <div>
-        <UserProfile/>
-      </div>
-    );
-  }
-  
+import React from "react";
+export default function(){
+    return(
+        <div>
+            User Profile
+        </div>
+    )
+}

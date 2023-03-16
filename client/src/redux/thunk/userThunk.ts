@@ -1,6 +1,6 @@
-import axios from "axios"
+import axios from "axios";
 import { AppDispatch } from "../store";
-import { userActions } from '../slice/userSlice';
+import { userActions } from "../slice/userSlice";
 
 export default function fetchUsersData(){
     const token = localStorage.getItem("token");
