@@ -46,15 +46,20 @@ type Prop ={
 export default function UserItem({user}: Prop) {
 
     const [adminValue, setAdminValue] = useState(user.isAdmin)
-    console.log(adminValue, "admin value");
+    const [bannedValue, setBannnedValue] = useState(user.isBanned)
+
     const userEmail = user.email;
     const token = localStorage.getItem("token");
-    //console.log(dbUserId, "userId")
-    //const userId = localStorage.getItem("id") || "{}";
+
     function adminHandler(){
         setAdminValue(!adminValue)
         const url = `http://localhost:8002/users/update/${userEmail}`;
         axios.put(url, {isAdmin: adminValue}, {headers: {Authorization: `Bearer ${token}`}});
+    }
+    function bannedHandler(){
+        setBannnedValue(!bannedValue)
+        const url = `http://localhost:8002/users/update/${userEmail}`;
+        axios.put(url, {isBanned: bannedValue}, {headers: {Authorization: `Bearer ${token}`}});
     }
   return (
         <TableBody>
@@ -70,8 +75,8 @@ export default function UserItem({user}: Prop) {
                 </IconButton>
                 </StyledTableCell>
               <StyledTableCell align="right">
-                <IconButton>
-                  <BlockIcon/>
+                <IconButton onClick={bannedHandler}>
+                  <BlockIcon sx={{color: bannedValue? "red" : "green"}}/>
                 </IconButton>
                 </StyledTableCell>
             </StyledTableRow>
