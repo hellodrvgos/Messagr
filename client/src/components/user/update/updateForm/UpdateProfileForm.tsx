@@ -1,6 +1,4 @@
 import { Formik, Form } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../redux/store";
 import * as Yup from "yup";
 import {
   Button,
@@ -253,4 +251,5 @@ function updateUsersData(values: InitialValues) {
       <Box sx={{ mb: 50 }}></Box>
     </div>
   );
+}
 }
