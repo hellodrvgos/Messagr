@@ -12,7 +12,9 @@ import store from "../src/redux/store"
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 const clientID = process.env.REACT_APP_CLIENT_ID as string;
+
 root.render(
   <React.StrictMode>
   <Provider store={store}>

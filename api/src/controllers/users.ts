@@ -83,6 +83,7 @@ export const loginWithPasswordController = async (
 
 export const getUserListController = async (req: Request, res: Response) => {
   try {
+    
     const userList = await UserServices.getUserList();
     res.status(200).json(userList);
   } catch (error) {
@@ -177,6 +178,24 @@ export const updateUserDetailController = async (
       res.status(200).json(updateDetail);
     }
   } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateUserByEmailController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+      const email = req.params.email;
+      const userInfo= req.body;
+      const updateUser = await UserServices.updateUserByEmail(
+        email,
+        userInfo
+      );
+      res.status(200).json(updateUser);
+    }
+   catch (error) {
     console.log(error);
   }
 };
