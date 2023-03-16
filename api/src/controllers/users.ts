@@ -90,31 +90,48 @@ export const getUserListController = async (req: Request, res: Response) => {
   }
 };
 
+// export const googleAuthenticate = async (
+//   request: Request,
+//   response: Response
+// ) => {
+//   try {
+//     const userData = request.user as UserDocument;
+//     if (!userData) {
+//       response.json({ message: "User not found" });
+//       return;
+//     }
+//     const token = jwt.sign(
+//       {
+//         email: request.body.email,
+//         firstName: userData.firstName,
+//       },
+//       JWT_SECRET,
+//       {
+//         expiresIn: "1h",
+//       }
+//     );
+//     response.json({ token, userData });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 export const googleAuthenticate = async (
-  request: Request,
-  response: Response
+  req: Request,
+  res: Response
 ) => {
   try {
-    const userData = request.user as UserDocument;
-    if (!userData) {
-      response.json({ message: "User not found" });
-      return;
-    }
-    const token = jwt.sign(
-      {
-        email: request.body.email,
-        firstName: userData.firstName,
-      },
-      JWT_SECRET,
-      {
-        expiresIn: "1h",
+      const userData = req.user as UserDocument;
+      if (!userData) {
+          res.json({message: "can't find user with this email"});
+          return;
+      } else {
+          res.json({token: generateToken(userData._id), userData});
       }
-    );
-    response.json({ token, userData });
   } catch (error) {
-    console.log(error);
+      console.log(error);
   }
-};
+}
 
 export const displayUserInformationController =  async (
   req: Request,

@@ -52,7 +52,7 @@ export default function UpdateProfileForm() {
     location: `${userInfoDetails.location}`,
     phone: `${userInfoDetails.phone}`,
     role: `${userInfoDetails.role}`,
-    gitHub: `${userInfoDetails.github}`,
+    gitHub: `${userInfoDetails.gitHub}`,
     avatar: `${userInfoDetails.avatar}`,
   };
 
@@ -68,7 +68,7 @@ function updateUsersData(values: InitialValues) {
       location: values.location,
       phone: values.phone,
       role: values.role,
-      github: values.gitHub,
+      gitHub: values.gitHub,
       avatar: values.avatar
     }, {headers: {Authorization: `Bearer ${token}`}});
   }
@@ -187,6 +187,7 @@ function updateUsersData(values: InitialValues) {
                       </div>
                       <div className="second-column">
                         <TextField
+                          placeholder="Your role..."
                           label="role"
                           name="role"
                           defaultValue={userInfoDetails.role}
@@ -197,14 +198,14 @@ function updateUsersData(values: InitialValues) {
                         <TextField
                           label="gitHub"
                           name="gitHub"
-                          defaultValue={userInfoDetails.github}
+                          defaultValue={userInfoDetails.gitHub}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
                         ></TextField>
                         <TextField
-                          label="phonenumber"
-                          name="phonenumber"
+                          label="Phone"
+                          name="phone"
                           defaultValue={userInfoDetails.phone}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}

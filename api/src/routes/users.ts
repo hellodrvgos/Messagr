@@ -35,7 +35,8 @@ router.get(
   getUserListController
 );
 
-router.get("/:id", passport.authenticate("jwt", {session: false}), displayUserInformationController);
+// router.get("/:id", passport.authenticate("jwt", {session: false}), displayUserInformationController);
+router.get("/:id", displayUserInformationController);
 
 //chatengine
 router.post("/loginChat", async (req, res) => {

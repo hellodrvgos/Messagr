@@ -17,7 +17,7 @@ export default function UserProfile() {
         <p>{userInfo.location}</p>
         <p>{userInfo.phone}</p>
         <p>{userInfo.role}</p>
-        {userInfo.isAdmin? 
+        {userInfo.isAdmin ? 
         <Link to={`/user-list`}>User List</Link>
         :null}
       </div>

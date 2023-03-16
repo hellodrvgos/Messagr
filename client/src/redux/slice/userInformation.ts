@@ -17,8 +17,8 @@ const initialState: InitialState = {
         avatar: "",
         role: "",
         location: "",
-        github: "",
-        phone: 0,
+        gitHub: "",
+        phone: "",
     },
 }
 
