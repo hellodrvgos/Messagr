@@ -86,6 +86,7 @@ export const getUserListController = async (
   res: Response
 ) => {
   try {
+    
     const userData = await UserServices.findUserById(req.params.id);
 
     if (!userData) {
@@ -194,6 +195,24 @@ export const updateUserDetailController = async (
       res.status(200).json(updateDetail);
     }
   } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateUserByEmailController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+      const email = req.params.email;
+      const userInfo= req.body;
+      const updateUser = await UserServices.updateUserByEmail(
+        email,
+        userInfo
+      );
+      res.status(200).json(updateUser);
+    }
+   catch (error) {
     console.log(error);
   }
 };

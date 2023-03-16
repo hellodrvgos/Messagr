@@ -6,7 +6,8 @@ import {
   getUserListController,
   googleAuthenticate,
   updateUserDetailController,
-  displayUserInformationController
+  displayUserInformationController,
+  updateUserByEmailController
 } from "../controllers/users";
 
 import axios from "axios";
@@ -28,6 +29,13 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   updateUserDetailController
 );
+
+router.put(
+  "/update/:email",
+  passport.authenticate("jwt", { session: false }),
+  updateUserByEmailController
+);
+
 
 router.get(
   "/userlist/:id",

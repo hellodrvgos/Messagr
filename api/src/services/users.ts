@@ -46,6 +46,15 @@ const updateUserDetail = async (
 ): Promise<UserDocument | null> => {
   return User.findByIdAndUpdate(userId, update, { new: true });
 };
+//update userInformation by email
+const updateUserByEmail = async (
+  emailFromRequest: string,
+  update: Partial<UserDocument>
+): Promise<UserDocument | null> => {
+  const userEmail= {email: emailFromRequest}
+  return User.findOneAndUpdate(userEmail, update, { new: true });
+};
+
 export default {
   createUser,
   findUserByEmail,
@@ -53,4 +62,5 @@ export default {
   getUserList,
   createOrFindUserByEmail,
   updateUserDetail,
+  updateUserByEmail,
 };

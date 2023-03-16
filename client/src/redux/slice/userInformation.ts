@@ -8,6 +8,7 @@ type InitialState = {
 
 const initialState: InitialState = {
     userInfo: {
+        _id: "",
         email: "",
         password: "",
         firstName: "",
