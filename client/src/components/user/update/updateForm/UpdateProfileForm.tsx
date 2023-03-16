@@ -1,6 +1,6 @@
 import { Formik, Form } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../redux/store";
+// import { useDispatch, useSelector } from "react-redux";
+// import { RootState } from "../../../../redux/store";
 import * as Yup from "yup";
 import {
   Button,
@@ -22,6 +22,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 export default function UpdateProfileForm() {
+
+  const userId = localStorage.getItem("id") || "{}";
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+     dispatch(getUserInformation());
+  }, [dispatch, userId]);
+
+  const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
+
   //  get user id from redux
   const navigate = useNavigate();
   // type
@@ -48,81 +59,61 @@ export default function UpdateProfileForm() {
   };
 
 
-const token = localStorage.getItem("token");
-
-const updateUserUrl = `http://localhost:8002/users/${userId}`;
-
-function updateUsersData(values: InitialValues) {
-    axios.put(updateUserUrl, {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      location: values.location,
-      phone: values.phone,
-      role: values.role,
-      gitHub: values.gitHub,
-      avatar: values.avatar
-    }, {headers: {Authorization: `Bearer ${token}`}});
-
   const token = localStorage.getItem("token");
 
   const updateUserUrl = `http://localhost:8002/users/${userId}`;
 
   function updateUsersData(values: InitialValues) {
-    axios.put(
-      updateUserUrl,
-      {
+      axios.put(updateUserUrl, {
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
         location: values.location,
         phone: values.phone,
         role: values.role,
-        github: values.gitHub,
-        avatar: values.avatar,
-      },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+        gitHub: values.gitHub,
+        avatar: values.avatar
+      }, {headers: {Authorization: `Bearer ${token}`}});
 
+    // schema
+
+    // const FormSchema = Yup.object().shape({
+    //   firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
+    //   lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
+    //   email: Yup.string().email("Invalid email").required("Required"),
+    // });
+
+    // const FormSchema = Yup.object().shape({
+    //   firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
+    //   lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
+    //   email: Yup.string().email("Invalid email"),
+    // });
   }
-
-  // schema
-
-  // const FormSchema = Yup.object().shape({
-  //   firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
-  //   lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
-  //   email: Yup.string().email("Invalid email").required("Required"),
-  // });
-
-  const FormSchema = Yup.object().shape({
-    firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    email: Yup.string().email("Invalid email"),
-  });
 
   return (
     <div className="login-page-update">
       <div className="form-container">
         <Formik
           initialValues={initialValues}
-          validationSchema={FormSchema}
-          onSubmit={(values) => {
-            console.log(values, "values");
-            //   const userData = JSON.parse(localStorage.getItem("userDetail")!);
-            //   const token = userData.token;
-            //    const url = `http://localhost:8002/users/${userId}`;
-            //   axios
-            //     .put(url, values, {
-            //       headers: { Authorization: `Bearer ${token} ` },
-            //     })
-            //     .then((response) =>
-            //       localStorage.setItem(
-            //         "updatedDetail",
-            //         JSON.stringify(response.data)
-            //       )
-            //     );
-            //   navigate(`/success`);
-          }}
+          // validationSchema={FormSchema}
+          // onSubmit={(values) => {
+          //   console.log(values, "values");
+          //     const userData = JSON.parse(localStorage.getItem("userDetail")!);
+          //     const token = userData.token;
+          //      const url = `http://localhost:8002/users/${userId}`;
+          //     axios
+          //       .put(url, values, {
+          //         headers: { Authorization: `Bearer ${token} ` },
+          //       })
+          //       .then((response) =>
+          //         localStorage.setItem(
+          //           "updatedDetail",
+          //           JSON.stringify(response.data)
+          //         )
+          //       );
+          //     navigate(`/success`);
+          // }}
+          onSubmit={updateUsersData}
         >
           {({ errors, touched, handleChange }) => {
             return (

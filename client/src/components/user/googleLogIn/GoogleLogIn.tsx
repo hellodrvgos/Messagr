@@ -7,6 +7,7 @@ import { userActions } from "../../../redux/slice/userSlice";
 
 import "./GoogleLogIn.css";
 import UserProfile from "../userProfile/UserProfile";
+import { useNavigate } from "react-router-dom";
 export default function GoogleLogIn() {
 
 
