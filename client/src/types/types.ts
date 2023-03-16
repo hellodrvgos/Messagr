@@ -8,6 +8,6 @@ export type User = {
     avatar: string;
     role: string;
     location: string;
-    github: string;
-    phone: number;
+    gitHub: string;
+    phone: string;
   };

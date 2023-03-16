@@ -22,6 +22,7 @@ export const jwtStrategy = new JwtStrategy(
     done(null, foundUser);
   }
 );
+
 export const googleStrategy = new GoogleTokenStrategy(
   { clientID: CLIENT_ID },
   async (parsedToken, googleId: string, done) => {

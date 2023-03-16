@@ -43,9 +43,26 @@ export default function UpdateProfileForm() {
     location: `${userInfoDetails.location}`,
     phone: `${userInfoDetails.phone}`,
     role: `${userInfoDetails.role}`,
-    gitHub: `${userInfoDetails.github}`,
+    gitHub: `${userInfoDetails.gitHub}`,
     avatar: `${userInfoDetails.avatar}`,
   };
+
+
+const token = localStorage.getItem("token");
+
+const updateUserUrl = `http://localhost:8002/users/${userId}`;
+
+function updateUsersData(values: InitialValues) {
+    axios.put(updateUserUrl, {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      location: values.location,
+      phone: values.phone,
+      role: values.role,
+      gitHub: values.gitHub,
+      avatar: values.avatar
+    }, {headers: {Authorization: `Bearer ${token}`}});
 
   const token = localStorage.getItem("token");
 
@@ -66,6 +83,7 @@ export default function UpdateProfileForm() {
       },
       { headers: { Authorization: `Bearer ${token}` } }
     );
+
   }
 
   // schema
@@ -180,6 +198,7 @@ export default function UpdateProfileForm() {
                       </div>
                       <div className="second-column">
                         <TextField
+                          placeholder="Your role..."
                           label="role"
                           name="role"
                           defaultValue={userInfoDetails.role}
@@ -190,14 +209,14 @@ export default function UpdateProfileForm() {
                         <TextField
                           label="gitHub"
                           name="gitHub"
-                          defaultValue={userInfoDetails.github}
+                          defaultValue={userInfoDetails.gitHub}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
                         ></TextField>
                         <TextField
-                          label="phonenumber"
-                          name="phonenumber"
+                          label="Phone"
+                          name="phone"
                           defaultValue={userInfoDetails.phone}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}

@@ -12,13 +12,13 @@ type User = {
 
 export default function Chat() {
 
-  //const userId = localStorage.getItem("id") || "{}";
+  const userId = localStorage.getItem("id") || "{}";
 
-  //const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
-  //useEffect(() => {
-   //   dispatch(getUserInformation(userId));
-  //}, [dispatch, userId]);
+  useEffect(() => {
+     dispatch(getUserInformation());
+  }, [dispatch, userId]);
 
   const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
 

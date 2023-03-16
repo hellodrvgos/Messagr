@@ -10,7 +10,7 @@ export type UserDocument = Document & {
   avatar: string;
   role: string;
   location: string;
-  github: string;
+  gitHub: string;
   phone: string;
 };
 
@@ -22,14 +22,15 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    // required: true,
   },
   firstName: {
     type: String,
-    required: true,
+    default: ""
   },
   lastName: {
     type: String,
+    default: ""
   },
   isAdmin: {
     type: Boolean,
@@ -41,18 +42,23 @@ const UserSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
+    default: ""
   },
   role: {
     type: String,
+    default: ""
   },
   location: {
     type: String,
+    default: ""
   },
   gitHub: {
     type: String,
+    default: ""
   },
   phone: {
     type: String,
+    default: ""
   },
 });
 
