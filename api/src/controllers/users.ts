@@ -81,10 +81,27 @@ export const loginWithPasswordController = async (
   }
 };
 
-export const getUserListController = async (req: Request, res: Response) => {
+export const getUserListController = async (
+  req: Request, 
+  res: Response
+) => {
   try {
-    const userList = await UserServices.getUserList();
-    res.status(200).json(userList);
+    const userData = await UserServices.findUserById(req.params.id);
+
+    if (!userData) {
+      res.json({message: `No user with id ${req.params.id}`});
+      return;
+    }
+
+    const isAdmin = userData.isAdmin;
+    
+    if (isAdmin) {
+      const userList = await UserServices.getUserList();
+      return res.status(200).json(userList);
+    } else {
+      res.json({ message: "Not authorized." });
+    }
+
   } catch (error) {
     console.log(error);
   }

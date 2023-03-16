@@ -13,6 +13,11 @@ const findUserById = async (id: string): Promise<UserDocument | null> => {
   const foundUser = User.findOne({ _id: id });
   return foundUser;
 };
+
+// const findUserByIdAdmin = async (id: string): Promise<UserDocument | null> => {
+//   const foundUser = User.findOne({ _id: id, isAdmin: true });
+//   return foundUser;
+// };
 // get user list
 const getUserList = async (): Promise<UserDocument[]> => {
   return User.find();
