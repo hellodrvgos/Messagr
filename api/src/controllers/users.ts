@@ -92,6 +92,7 @@ export const getUserListController = async (req: Request, res: Response) => {
 
     const isAdmin = userData.isAdmin;
 
+
     // const userData = await UserServices.findUserById(req.params.id);
 
     if (!userData) {

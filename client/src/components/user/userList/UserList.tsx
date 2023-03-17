@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -10,10 +11,12 @@ import Paper from "@mui/material/Paper";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "../../../redux/store";
 import fetchUsersData from "../../../redux/thunk/userThunk";
+
 
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 
@@ -21,6 +24,7 @@ import BlockIcon from "@mui/icons-material/Block";
 
 import { getUserInformation } from "../../../redux/thunk/userInformation";
 import UserItem from "../userItem/UserItem";
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,6 +48,7 @@ export default function UserListTable() {
   useEffect(() => {
     dispatch(getUserInformation());
   }, [dispatch, userId]);
+
   const userInfo = useSelector(
     (state: RootState) => state.userinformation.userInfo
   );
@@ -78,4 +83,5 @@ export default function UserListTable() {
     );
   }
   return <div>Not authorized...</div>;
+
 }
