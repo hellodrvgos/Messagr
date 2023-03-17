@@ -8,6 +8,7 @@ import { userActions } from "../../../redux/slice/userSlice";
 import "./GoogleLogIn.css";
 import UserProfile from "../userProfile/UserProfile";
 import { useNavigate } from "react-router-dom";
+import { userInfoActions } from "../../../redux/slice/userInformation";
 export default function GoogleLogIn() {
 
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function GoogleLogIn() {
 
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("id", response.data.userData._id)
+            dispatch(userInfoActions.getLogInInfo(true))
             navigate("/chat");
 
           } else {

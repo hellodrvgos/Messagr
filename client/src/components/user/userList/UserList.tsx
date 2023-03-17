@@ -24,6 +24,7 @@ import BlockIcon from "@mui/icons-material/Block";
 
 import { getUserInformation } from "../../../redux/thunk/userInformation";
 import UserItem from "../userItem/UserItem";
+import { User } from "../../../types/types";
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -53,9 +54,9 @@ export default function UserListTable() {
     (state: RootState) => state.userinformation.userInfo
   );
 
-  // const filteredUserList = userList.filter((user)=> user.email !== userInfo.email);
+  const filteredUserList = userList.filter((user)=> user._id !== userInfo._id);
 
-  // console.log(filteredUserList, "filteredUserList")
+  //console.log(filteredUserList, "filteredUserList")
 
   // const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
 
@@ -75,7 +76,7 @@ export default function UserListTable() {
               <StyledTableCell align="right">Banned</StyledTableCell>
             </TableRow>
           </TableHead>
-          {userList.map((user, index) => {
+          {filteredUserList.map((user, index) => {
             return <UserItem key={index} user={user} />;
           })}
         </Table>
