@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -17,14 +16,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/store";
 import fetchUsersData from "../../../redux/thunk/userThunk";
 
-
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 
 import BlockIcon from "@mui/icons-material/Block";
 
 import { getUserInformation } from "../../../redux/thunk/userInformation";
 import UserItem from "../userItem/UserItem";
-
+import { userActions } from "../../../redux/slice/userSlice";
+import { TableSortLabel } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,7 +37,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function UserListTable() {
   const userId = localStorage.getItem("id") || "{}";
-
+  const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("asc");
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchUsersData());
@@ -53,7 +52,21 @@ export default function UserListTable() {
     (state: RootState) => state.userinformation.userInfo
   );
 
-  // const filteredUserList = userList.filter((user)=> user.email !== userInfo.email);
+  const sortAscendingHandler = () => {
+    dispatch(userActions.sortAscending());
+    setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
+    // setOrderDirection("asc");
+  };
+
+  const sortDescendingHandler = () => {
+    dispatch(userActions.sortDescending());
+    setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
+    // setOrderDirection("desc");
+  };
+
+  const filteredUserList = userList.filter(
+    (user) => user.email !== userInfo.email
+  );
 
   // console.log(filteredUserList, "filteredUserList")
 
@@ -68,14 +81,27 @@ export default function UserListTable() {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell
+                onClick={
+                  orderDirection === "asc"
+                    ? sortAscendingHandler
+                    : sortDescendingHandler
+                }
+              >
+                Name
+                <TableSortLabel
+                  active={true}
+                  direction={orderDirection}
+                  sx={{ background: "#fff", ml: 1, color: "#000" }}
+                ></TableSortLabel>
+              </StyledTableCell>
               <StyledTableCell align="right">Role</StyledTableCell>
               <StyledTableCell align="right">E-mail</StyledTableCell>
               <StyledTableCell align="right">Admin</StyledTableCell>
               <StyledTableCell align="right">Banned</StyledTableCell>
             </TableRow>
           </TableHead>
-          {userList.map((user, index) => {
+          {filteredUserList.map((user, index) => {
             return <UserItem key={index} user={user} />;
           })}
         </Table>
@@ -83,5 +109,4 @@ export default function UserListTable() {
     );
   }
   return <div>Not authorized...</div>;
-
 }

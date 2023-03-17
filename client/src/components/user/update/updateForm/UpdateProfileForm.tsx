@@ -80,7 +80,9 @@ export default function UpdateProfileForm() {
     );
     navigate("/success");
   }
-
+  if (token === null) {
+    <div>Not authorized</div>;
+  }
   return (
     <div className="login-page-update">
       <div className="form-container">
