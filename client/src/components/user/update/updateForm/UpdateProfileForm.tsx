@@ -83,11 +83,11 @@ export default function UpdateProfileForm() {
     //   email: Yup.string().email("Invalid email").required("Required"),
     // });
 
-    // const FormSchema = Yup.object().shape({
-    //   firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    //   lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    //   email: Yup.string().email("Invalid email"),
-    // });
+    const FormSchema = Yup.object().shape({
+      firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
+      lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
+      email: Yup.string().email("Invalid email"),
+    });
   }
 
   return (
@@ -135,6 +135,7 @@ export default function UpdateProfileForm() {
                     <div className="form-field">
                       <div className="first-column">
                         <TextField
+                        required
                           label="firstName"
                           name="firstName"
                           defaultValue={userInfoDetails.firstName}
@@ -149,6 +150,7 @@ export default function UpdateProfileForm() {
                           </div>
                         ) : null}
                         <TextField
+                        required
                           label="lastName"
                           name="lastName"
                           defaultValue={userInfoDetails.lastName}
@@ -161,6 +163,7 @@ export default function UpdateProfileForm() {
                         ) : null}
 
                         <TextField
+                        required
                           label="Email"
                           name="email"
                           defaultValue={userInfoDetails.email}

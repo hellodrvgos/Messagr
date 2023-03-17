@@ -23,7 +23,6 @@ import BlockIcon from '@mui/icons-material/Block';
 import { getUserInformation } from "../../../redux/thunk/userInformation";
 import UserItem from '../userItem/UserItem';
 
-import { getUserInformation } from "../../../redux/thunk/userInformation";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
