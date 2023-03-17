@@ -86,7 +86,7 @@ export const getUserListController = async (
   res: Response
 ) => {
   try {
-    
+
     const userData = await UserServices.findUserById(req.params.id);
 
     if (!userData) {
@@ -96,6 +96,17 @@ export const getUserListController = async (
 
     const isAdmin = userData.isAdmin;
     
+
+    const userData = await UserServices.findUserById(req.params.id);
+
+    if (!userData) {
+      res.json({message: `No user with id ${req.params.id}`});
+      return;
+    }
+
+    const isAdmin = userData.isAdmin;
+    
+
     if (isAdmin) {
       const userList = await UserServices.getUserList();
       return res.status(200).json(userList);

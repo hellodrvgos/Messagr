@@ -23,6 +23,8 @@ import BlockIcon from '@mui/icons-material/Block';
 import { getUserInformation } from "../../../redux/thunk/userInformation";
 import UserItem from '../userItem/UserItem';
 
+import { getUserInformation } from "../../../redux/thunk/userInformation";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -73,6 +75,7 @@ if (userInfo.isAdmin === true) {
       </Table>
     </TableContainer>
   );
+
 }
 return (
   <div>
