@@ -11,22 +11,23 @@ import TopBar from "./components/navigation/TopBar";
 import UserRegister from "./pages/UserRegister";
 import UserProfilePage from "./pages/UserProfilePage";
 import UserList from "./components/user/userList/UserList";
-
+import SuccessMessage from "./components/user/update/successOnUpdate/successOnUpdate/SuccessMessage";
 
 function App() {
   return (
     <div className="App">
       <CssBaseline />
-      <TopBar/>
+      <TopBar />
       <Routes>
         {/* <Route path="" element={<HomePage />}></Route> */}
         <Route path="" element={<UserLogin />}></Route>
         <Route path="/login" element={<UserLogin />}></Route>
-        <Route path="/register" element={<UserRegister/>}></Route>
-        <Route path="/profile" element={<UserProfilePage/>}></Route>
+        <Route path="/register" element={<UserRegister />}></Route>
+        <Route path="/profile" element={<UserProfilePage />}></Route>
         <Route path="/update" element={<Update />}></Route>
-        <Route path="/chat" element={<Chat/>}></Route>
-        <Route path="/user-list" element={<UserList/>}></Route>
+        <Route path="/chat" element={<Chat />}></Route>
+        <Route path="/user-list" element={<UserList />}></Route>
+        <Route path="/success" element={<SuccessMessage />}></Route>
       </Routes>
     </div>
   );

@@ -14,12 +14,10 @@ export default function SuccessMessage() {
           mt: 10,
           mb: 50,
           height: 100,
-          backgroundColor: "#eeeeee",
         }}
       >
         <Typography sx={{ ml: 6, mt: 4, textAlign: "center" }}>
           Your have updated your profile successfully!
-          <SentimentSatisfiedAltIcon />
         </Typography>
       </Paper>
     </div>
