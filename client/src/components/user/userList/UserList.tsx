@@ -9,21 +9,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import {useEffect, useState} from "react"
-import axios from "axios"
+import {useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "../../../redux/store";
 import fetchUsersData from "../../../redux/thunk/userThunk";
 
-import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-
-import BlockIcon from '@mui/icons-material/Block';
-
 import { getUserInformation } from "../../../redux/thunk/userInformation";
 import UserItem from '../userItem/UserItem';
-
-import { getUserInformation } from "../../../redux/thunk/userInformation";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,16 +42,11 @@ export default function UserListTable() {
     dispatch(getUserInformation());
   }, [dispatch, userId]);
   const userInfo = useSelector((state: RootState)=> state.userinformation.userInfo);
+  const filteredUserList = userList.filter((user)=> user._id !== userInfo._id);
 
-  // const filteredUserList = userList.filter((user)=> user.email !== userInfo.email);
-
-  // console.log(filteredUserList, "filteredUserList")
-
-    // const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
-
-if (userInfo.isAdmin === true) {
-  return (
-    <TableContainer component={Paper} sx={{width: "80%", mx: "auto", mt: 10}}>
+  if (userInfo.isAdmin === true) {
+    return (
+     <TableContainer component={Paper} sx={{width: "80%", mx: "auto", mt: 10}}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -69,11 +57,11 @@ if (userInfo.isAdmin === true) {
             <StyledTableCell align="right">Banned</StyledTableCell>
           </TableRow>
         </TableHead>
-        {userList.map((user, index)=>{
+        {filteredUserList.map((user, index)=>{
           return <UserItem key={index} user={user}/>
         })}
       </Table>
-    </TableContainer>
+     </TableContainer>
   );
 
 }

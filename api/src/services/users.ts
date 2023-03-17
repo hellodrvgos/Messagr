@@ -51,8 +51,8 @@ const updateUserByEmail = async (
   emailFromRequest: string,
   update: Partial<UserDocument>
 ): Promise<UserDocument | null> => {
-  const userEmail = await User.findOne({email: emailFromRequest});
-  return User.findByIdAndUpdate(userEmail, update, { new: true });
+  const userEmail = {email: emailFromRequest};
+  return User.findOneAndUpdate(userEmail, update, { new: true });
 
 };
 

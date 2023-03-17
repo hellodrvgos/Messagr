@@ -1,26 +1,15 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
-import {useEffect, useState} from "react"
+import {useState} from "react"
 import axios from "axios"
-import { useDispatch, useSelector } from "react-redux";
-
-import { AppDispatch, RootState } from "../../../redux/store";
-import fetchUsersData from "../../../redux/thunk/userThunk";
-
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-
 import BlockIcon from '@mui/icons-material/Block';
 import { IconButton } from '@mui/material';
+
 import { User } from '../../../types/types';
-
-import { getUserInformation } from "../../../redux/thunk/userInformation";
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -53,7 +42,7 @@ export default function UserItem({user}: Prop) {
     const [adminValue, setAdminValue] = useState(user.isAdmin)
     const [bannedValue, setBannnedValue] = useState(user.isBanned)
 
-    const userEmail = user.email;
+    //const userEmail = user.email;
     const token = localStorage.getItem("token");
 
     console.log(user, "user useritem")
