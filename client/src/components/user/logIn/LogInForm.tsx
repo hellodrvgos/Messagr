@@ -19,6 +19,9 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import { Typography } from "@mui/material";
 import GoogleLogIn from "../googleLogIn/GoogleLogIn";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../redux/store";
+import { userInfoActions } from "../../../redux/slice/userInformation";
 
 export default function LoginForm() {
   const FormSchema = Yup.object().shape({
@@ -35,6 +38,7 @@ export default function LoginForm() {
 
   const loginUrl = "http://localhost:8002/users/login";
 
+  const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate();
 
   const [isShown, setIsShown] = useState(false);

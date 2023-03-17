@@ -22,8 +22,12 @@ import BlockIcon from "@mui/icons-material/Block";
 
 import { getUserInformation } from "../../../redux/thunk/userInformation";
 import UserItem from "../userItem/UserItem";
+
 import { userActions } from "../../../redux/slice/userSlice";
 import { TableSortLabel } from "@mui/material";
+
+import { User } from "../../../types/types";
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -52,6 +56,7 @@ export default function UserListTable() {
     (state: RootState) => state.userinformation.userInfo
   );
 
+
   const sortAscendingHandler = () => {
     dispatch(userActions.sortAscending());
     setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
@@ -68,7 +73,10 @@ export default function UserListTable() {
     (user) => user.email !== userInfo.email
   );
 
-  // console.log(filteredUserList, "filteredUserList")
+  const filteredUserList = userList.filter((user)=> user._id !== userInfo._id);
+
+
+  //console.log(filteredUserList, "filteredUserList")
 
   // const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
 
