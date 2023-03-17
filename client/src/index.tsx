@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(
 const clientID = process.env.REACT_APP_CLIENT_ID as string;
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
   <Provider store={store}>
     <BrowserRouter>
       <GoogleOAuthProvider clientId={clientID}>
@@ -24,7 +24,7 @@ root.render(
       </GoogleOAuthProvider>
     </BrowserRouter>
   </Provider>
-  </React.StrictMode>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -38,10 +38,22 @@ router.put(
 
 
 router.get(
-  "/",
+  "/userlist/:id",
   passport.authenticate("jwt", { session: false }),
   getUserListController
 );
+
+// router.put(
+//   "/userlist/:id",
+//   passport.authenticate("jwt", { session: false }),
+//   makeAdminController
+// );
+
+// router.put(
+//   "/userlist/:id",
+//   passport.authenticate("jwt", { session: false }),
+//   banUserController
+// );
 
 router.get("/:id", passport.authenticate("jwt", {session: false}), displayUserInformationController);
 
