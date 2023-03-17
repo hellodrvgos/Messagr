@@ -60,7 +60,7 @@ export default function UpdateProfileForm() {
   };
 
   const token = localStorage.getItem("token");
-
+  console.log(token, "token from update");
   const updateUserUrl = `http://localhost:8002/users/${userId}`;
 
   function updateUsersData(values: InitialValues) {
@@ -78,48 +78,13 @@ export default function UpdateProfileForm() {
       },
       { headers: { Authorization: `Bearer ${token}` } }
     );
-
-    // schema
-
-    // const FormSchema = Yup.object().shape({
-    //   firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    //   lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    //   email: Yup.string().email("Invalid email").required("Required"),
-    // });
-
-    // const FormSchema = Yup.object().shape({
-    //   firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    //   lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
-    //   email: Yup.string().email("Invalid email"),
-    // });
     navigate("/success");
   }
 
   return (
     <div className="login-page-update">
       <div className="form-container">
-        <Formik
-          initialValues={initialValues}
-          // validationSchema={FormSchema}
-          // onSubmit={(values) => {
-          //   console.log(values, "values");
-          //     const userData = JSON.parse(localStorage.getItem("userDetail")!);
-          //     const token = userData.token;
-          //      const url = `http://localhost:8002/users/${userId}`;
-          //     axios
-          //       .put(url, values, {
-          //         headers: { Authorization: `Bearer ${token} ` },
-          //       })
-          //       .then((response) =>
-          //         localStorage.setItem(
-          //           "updatedDetail",
-          //           JSON.stringify(response.data)
-          //         )
-          //       );
-          //     navigate(`/success`);
-          // }}
-          onSubmit={updateUsersData}
-        >
+        <Formik initialValues={initialValues} onSubmit={updateUsersData}>
           {({ errors, touched, handleChange }) => {
             return (
               <Form>
@@ -140,7 +105,7 @@ export default function UpdateProfileForm() {
                     <div className="form-field">
                       <div className="first-column">
                         <TextField
-                          label="firstName"
+                          label="First name"
                           name="firstName"
                           defaultValue={userInfoDetails.firstName}
                           onChange={handleChange}
@@ -154,7 +119,7 @@ export default function UpdateProfileForm() {
                           </div>
                         ) : null}
                         <TextField
-                          label="lastName"
+                          label="Last name"
                           name="lastName"
                           defaultValue={userInfoDetails.lastName}
                           sx={{ mt: 1, width: 250 }}
