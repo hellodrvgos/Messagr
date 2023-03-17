@@ -37,22 +37,22 @@ export default function UserListTable() {
 
   const userId = localStorage.getItem("id") || "{}";
 
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(()=>{
+      dispatch(fetchUsersData())
+  }, [dispatch, userId])
   const userList = useSelector((state: RootState)=> state.users.userList);
 
-    const filteredUserList= userList.filter((user)=> user.email !== userInfo.email);
-    
-    const dispatch = useDispatch<AppDispatch>();
-    useEffect(()=>{
-        dispatch(fetchUsersData())
-    }, [dispatch, userId])
+  useEffect(() => {
+    dispatch(getUserInformation());
+  }, [dispatch, userId]);
+  const userInfo = useSelector((state: RootState)=> state.userinformation.userInfo);
 
+  // const filteredUserList = userList.filter((user)=> user.email !== userInfo.email);
 
-    useEffect(() => {
-       dispatch(getUserInformation());
-    }, [dispatch, userId]);
+  // console.log(filteredUserList, "filteredUserList")
 
-    const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
-    const userInfo = useSelector((state: RootState)=> state.userinformation.userInfo);
+    // const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
 
 if (userInfo.isAdmin === true) {
   return (
@@ -67,10 +67,8 @@ if (userInfo.isAdmin === true) {
             <StyledTableCell align="right">Banned</StyledTableCell>
           </TableRow>
         </TableHead>
-        {filteredUserList.map((user)=>{
-          return <div>
-            <UserItem user={user}/>
-            </div>
+        {userList.map((user, index)=>{
+          return <UserItem key={index} user={user}/>
         })}
       </Table>
     </TableContainer>

@@ -19,6 +19,9 @@ import BlockIcon from '@mui/icons-material/Block';
 import { IconButton } from '@mui/material';
 import { User } from '../../../types/types';
 
+import { getUserInformation } from "../../../redux/thunk/userInformation";
+
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -45,21 +48,27 @@ type Prop ={
 
 export default function UserItem({user}: Prop) {
 
+    const userId = localStorage.getItem("id") || "{}";
+
     const [adminValue, setAdminValue] = useState(user.isAdmin)
     const [bannedValue, setBannnedValue] = useState(user.isBanned)
 
     const userEmail = user.email;
     const token = localStorage.getItem("token");
 
+    console.log(user, "user useritem")
+
+    const id = user._id;
+
     function adminHandler(){
-        setAdminValue(!adminValue)
-        const url = `http://localhost:8002/users/update/${userEmail}`;
-        axios.put(url, {isAdmin: adminValue}, {headers: {Authorization: `Bearer ${token}`}});
-    }
+      const url = `http://localhost:8002/users/adminstatus/${userId}`;
+      axios.put(url, {id: id, isAdmin: !adminValue}, {headers: {Authorization: `Bearer ${token}`}});
+      setAdminValue(!adminValue);
+  }
     function bannedHandler(){
+        const url = `http://localhost:8002/users/banstatus/${userId}`;
+        axios.put(url, {id: id, isBanned: !bannedValue}, {headers: {Authorization: `Bearer ${token}`}});
         setBannnedValue(!bannedValue)
-        const url = `http://localhost:8002/users/update/${userEmail}`;
-        axios.put(url, {isBanned: bannedValue}, {headers: {Authorization: `Bearer ${token}`}});
     }
   return (
         <TableBody>
@@ -71,7 +80,7 @@ export default function UserItem({user}: Prop) {
               <StyledTableCell align="right">{user.email}</StyledTableCell>
               <StyledTableCell align="right">
                 <IconButton onClick={adminHandler}>
-                  <SupervisorAccountIcon sx={{color: adminValue? "green" : "black"}}/>
+                  <SupervisorAccountIcon sx={{color: adminValue ? "green" : "black"}}/>
                 </IconButton>
                 </StyledTableCell>
               <StyledTableCell align="right">
