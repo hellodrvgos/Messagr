@@ -22,16 +22,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 export default function UpdateProfileForm() {
-
   const userId = localStorage.getItem("id") || "{}";
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-     dispatch(getUserInformation());
+    dispatch(getUserInformation());
   }, [dispatch, userId]);
 
-  const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
+  const userInfoDetails = useSelector(
+    (state: RootState) => state.userinformation.userInfo
+  );
 
   //  get user id from redux
   const navigate = useNavigate();
@@ -58,13 +59,14 @@ export default function UpdateProfileForm() {
     avatar: `${userInfoDetails.avatar}`,
   };
 
-
   const token = localStorage.getItem("token");
 
   const updateUserUrl = `http://localhost:8002/users/${userId}`;
 
   function updateUsersData(values: InitialValues) {
-      axios.put(updateUserUrl, {
+    axios.put(
+      updateUserUrl,
+      {
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
@@ -72,8 +74,10 @@ export default function UpdateProfileForm() {
         phone: values.phone,
         role: values.role,
         gitHub: values.gitHub,
-        avatar: values.avatar
-      }, {headers: {Authorization: `Bearer ${token}`}});
+        avatar: values.avatar,
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
     // schema
 
@@ -83,11 +87,12 @@ export default function UpdateProfileForm() {
     //   email: Yup.string().email("Invalid email").required("Required"),
     // });
 
-    const FormSchema = Yup.object().shape({
-      firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
-      lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
-      email: Yup.string().email("Invalid email"),
-    });
+    // const FormSchema = Yup.object().shape({
+    //   firstName: Yup.string().min(2, "name too short").max(50, "name too long"),
+    //   lastName: Yup.string().min(2, "name too short").max(50, "name too long"),
+    //   email: Yup.string().email("Invalid email"),
+    // });
+    navigate("/success");
   }
 
   return (
