@@ -20,7 +20,7 @@ export default function MenuAppBar() {
   const userInfo = useSelector(
     (state: RootState) => state.userinformation.userInfo
   );
-  const loginInfo = localStorage.getItem("loginInfo");
+  const loginInfo: boolean = JSON.parse(localStorage.getItem("loginInfo")!)
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate();
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,6 +51,80 @@ export default function MenuAppBar() {
               >
                 <MenuIcon />
               </IconButton>
+              {
+                loginInfo? 
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>
+                    <Link
+                    href="/profile"
+                    variant="body1"
+                    sx={{ textDecoration: "none" }}
+                    >
+                    <Typography>Profile</Typography>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                    href="/update"
+                    variant="body1"
+                    sx={{ textDecoration: "none" }}
+                    >
+                      <Typography>Update</Typography>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                    href="/chat"
+                    variant="body1"
+                    sx={{ textDecoration: "none" }}
+                    >
+                    <Typography>Chat</Typography>
+                    </Link>
+                  </MenuItem>
+                  {
+                  userInfo.isAdmin? 
+                  <MenuItem>
+                    <Link
+                    href="/user-list"
+                    variant="body1"
+                    sx={{ textDecoration: "none" }}
+                    >
+                    <Typography>UserList</Typography>
+                    </Link>
+                  </MenuItem>
+                  : null
+                  }
+                  <MenuItem>
+                    <Link
+                    href="/"
+                    variant="body1"
+                    sx={{ textDecoration: "none" }}
+                      >
+                      <Typography
+                        onClick={() => {
+                          logOutHandler();
+                          }}
+                        >
+                        Logout
+                      </Typography>
+                    </Link>
+                </MenuItem> 
+              </Menu>  
+                  : 
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -66,91 +140,26 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                {
-                  loginInfo? 
-                  null
-                  : 
-                  <MenuItem>
-                    <Link
-                    href="/login"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
-                    >
-                    <Typography>Login</Typography>
-                    </Link>
+                <MenuItem>
+                      <Link
+                          href="/login"
+                          variant="body1"
+                          sx={{ textDecoration: "none" }}
+                        >
+                        <Typography>Login</Typography>
+                      </Link>
                   </MenuItem>
-                }
-                
-                {
-                  loginInfo?  
-                    null
-                  : 
                   <MenuItem>
-                    <Link
-                    href="/register"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
-                    >
-                    <Typography>Register</Typography>
-                    </Link>
+                      <Link
+                          href="/register"
+                          variant="body1"
+                          sx={{ textDecoration: "none" }}
+                        >
+                        <Typography>Register</Typography>
+                      </Link>
                   </MenuItem>
-                }
-                <MenuItem>
-                  <Link
-                    href="/profile"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
-                  >
-                    <Typography>Profile</Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    href="/update"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
-                  >
-                    <Typography>Update</Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link
-                    href="/chat"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
-                  >
-                    <Typography>Chat</Typography>
-                  </Link>
-                </MenuItem>
-                {
-                  userInfo.isAdmin? 
-                  <MenuItem>
-                    <Link
-                    href="/user-list"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
-                    >
-                    <Typography>UserList</Typography>
-                    </Link>
-                  </MenuItem>
-                  : null
-                }
-                <MenuItem>
-                  <Link
-                    href="/"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
-                  >
-                    <Typography
-                      onClick={() => {
-                        logOutHandler();
-                      }}
-                    >
-                      Logout
-                    </Typography>
-                  </Link>
-                </MenuItem>
-              </Menu>
+                </Menu>
+                } 
             </div>
           )}
         </Toolbar>
@@ -158,3 +167,5 @@ export default function MenuAppBar() {
     </Box>
   );
 }
+                  
+
