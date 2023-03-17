@@ -10,9 +10,7 @@ import UserProfile from "../userProfile/UserProfile";
 import { useNavigate } from "react-router-dom";
 export default function GoogleLogIn() {
 
-
   const navigate = useNavigate();
-
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -30,11 +28,6 @@ export default function GoogleLogIn() {
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("id", response.data.userData._id)
             navigate("/chat");
-
-
-            //const data = response.data.userData;
-            //dispatch(userActions.getUserInfo(data));
-            //console.log(response.data.userData, "response from backend");
 
           } else {
             console.log("no response");

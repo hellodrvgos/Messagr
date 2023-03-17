@@ -96,6 +96,17 @@ export const getUserListController = async (
 
     const isAdmin = userData.isAdmin;
     
+
+    const userData = await UserServices.findUserById(req.params.id);
+
+    if (!userData) {
+      res.json({message: `No user with id ${req.params.id}`});
+      return;
+    }
+
+    const isAdmin = userData.isAdmin;
+    
+
     if (isAdmin) {
       const userList = await UserServices.getUserList();
       return res.status(200).json(userList);
@@ -107,32 +118,6 @@ export const getUserListController = async (
     console.log(error);
   }
 };
-
-// export const googleAuthenticate = async (
-//   request: Request,
-//   response: Response
-// ) => {
-//   try {
-//     const userData = request.user as UserDocument;
-//     if (!userData) {
-//       response.json({ message: "User not found" });
-//       return;
-//     }
-//     const token = jwt.sign(
-//       {
-//         email: request.body.email,
-//         firstName: userData.firstName,
-//       },
-//       JWT_SECRET,
-//       {
-//         expiresIn: "1h",
-//       }
-//     );
-//     response.json({ token, userData });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 export const googleAuthenticate = async (
   req: Request,
@@ -199,13 +184,73 @@ export const updateUserDetailController = async (
   }
 };
 
+export const makeAdminController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const userData = await UserServices.findUserById(req.params.id);
+
+    if (!userData) {
+      res.json({message: `No user with id ${req.params.id}`});
+      return;
+    }
+    const isAdmin = userData.isAdmin;
+    
+    if (isAdmin) {
+      const id = req.body.id;
+      const adminStatus = req.body;
+      const updateDetail = await UserServices.updateUserDetail(
+        id,
+        adminStatus
+      );
+      return res.status(200).json(updateDetail);
+    } else {
+      res.json({ message: "Not authorized." });
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const banUserController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const userData = await UserServices.findUserById(req.params.id);
+
+    if (!userData) {
+      res.json({message: `No user with id ${req.params.id}`});
+      return;
+    }
+    const isAdmin = userData.isAdmin;
+    
+    if (isAdmin) {
+      const id = req.body.id;
+      const banStatus = req.body;
+      const updateDetail = await UserServices.updateUserDetail(
+        id,
+        banStatus
+      );
+      return res.status(200).json(updateDetail);
+    } else {
+      res.json({ message: "Not authorized." });
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const updateUserByEmailController = async (
   req: Request,
   res: Response
 ) => {
   try {
       const email = req.params.email;
-      const userInfo= req.body;
+      const userInfo = req.body;
       const updateUser = await UserServices.updateUserByEmail(
         email,
         userInfo

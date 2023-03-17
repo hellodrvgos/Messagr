@@ -4,6 +4,8 @@ import {
   createUserController,
   loginWithPasswordController,
   getUserListController,
+  makeAdminController,
+  banUserController,
   googleAuthenticate,
   updateUserDetailController,
   displayUserInformationController,
@@ -30,11 +32,17 @@ router.put(
   updateUserDetailController
 );
 
-router.put(
-  "/update/:email",
-  passport.authenticate("jwt", { session: false }),
-  updateUserByEmailController
-);
+// router.put(
+//   "/update/:userId",
+//   passport.authenticate("jwt", { session: false }),
+//   updateUserDetailController
+// );
+
+// router.put(
+//   "/update/:email",
+//   passport.authenticate("jwt", { session: false }),
+//   updateUserByEmailController
+// );
 
 
 router.get(
@@ -43,17 +51,17 @@ router.get(
   getUserListController
 );
 
-// router.put(
-//   "/userlist/:id",
-//   passport.authenticate("jwt", { session: false }),
-//   makeAdminController
-// );
+router.put(
+  "/adminstatus/:id",
+  passport.authenticate("jwt", { session: false }),
+  makeAdminController
+);
 
-// router.put(
-//   "/userlist/:id",
-//   passport.authenticate("jwt", { session: false }),
-//   banUserController
-// );
+router.put(
+  "/banstatus/:id",
+  passport.authenticate("jwt", { session: false }),
+  banUserController
+);
 
 router.get("/:id", passport.authenticate("jwt", {session: false}), displayUserInformationController);
 

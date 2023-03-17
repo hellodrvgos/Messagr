@@ -19,7 +19,8 @@ function App() {
       <CssBaseline />
       <TopBar/>
       <Routes>
-        <Route path="" element={<HomePage />}></Route>
+        {/* <Route path="" element={<HomePage />}></Route> */}
+        <Route path="" element={<UserLogin />}></Route>
         <Route path="/login" element={<UserLogin />}></Route>
         <Route path="/register" element={<UserRegister/>}></Route>
         <Route path="/profile" element={<UserProfilePage/>}></Route>

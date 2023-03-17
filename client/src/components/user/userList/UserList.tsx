@@ -19,8 +19,8 @@ import fetchUsersData from "../../../redux/thunk/userThunk";
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 import BlockIcon from '@mui/icons-material/Block';
-import { IconButton } from '@mui/material';
-import { User } from '../../../types/types';
+
+import { getUserInformation } from "../../../redux/thunk/userInformation";
 import UserItem from '../userItem/UserItem';
 
 import { getUserInformation } from "../../../redux/thunk/userInformation";
@@ -39,60 +39,47 @@ export default function UserListTable() {
 
   const userId = localStorage.getItem("id") || "{}";
 
-    //console.log(userList,"uerLisrt")
-    const dispatch = useDispatch<AppDispatch>();
-    useEffect(()=>{
-        dispatch(fetchUsersData())
-    }, [dispatch, userId])
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(()=>{
+      dispatch(fetchUsersData())
+  }, [dispatch, userId])
+  const userList = useSelector((state: RootState)=> state.users.userList);
 
-    const userList = useSelector((state: RootState)=> state.users.userList);
+  useEffect(() => {
+    dispatch(getUserInformation());
+  }, [dispatch, userId]);
+  const userInfo = useSelector((state: RootState)=> state.userinformation.userInfo);
 
+  // const filteredUserList = userList.filter((user)=> user.email !== userInfo.email);
 
-    useEffect(() => {
-       dispatch(getUserInformation());
-    }, [dispatch, userId]);
+  // console.log(filteredUserList, "filteredUserList")
 
-    const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
+    // const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
 
-    if (userInfoDetails.isAdmin === true) {
-        return (
-          <TableContainer component={Paper} sx={{width: "80%", mx: "auto", mt: 10}}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Name</StyledTableCell>
-                  <StyledTableCell align="right">Role</StyledTableCell>
-                  <StyledTableCell align="right">E-mail</StyledTableCell>
-                  <StyledTableCell align="right">Admin</StyledTableCell>
-                  <StyledTableCell align="right">Banned</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {userList.map((user) => (
-                  <StyledTableRow key={user.email}>
-                    <StyledTableCell component="th" scope="row">
-                      {user.firstName}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{user.role}</StyledTableCell>
-                    <StyledTableCell align="right">{user.email}</StyledTableCell>
-                    <StyledTableCell align="right"><SupervisorAccountIcon/></StyledTableCell>
-                    <StyledTableCell align="right"><BlockIcon/></StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )
-      }
-      return (
-        <div>
-          Not authorized...
-        </div>
-      )
-    // }
+if (userInfo.isAdmin === true) {
+  return (
+    <TableContainer component={Paper} sx={{width: "80%", mx: "auto", mt: 10}}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell align="right">Role</StyledTableCell>
+            <StyledTableCell align="right">E-mail</StyledTableCell>
+            <StyledTableCell align="right">Admin</StyledTableCell>
+            <StyledTableCell align="right">Banned</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        {userList.map((user, index)=>{
+          return <UserItem key={index} user={user}/>
+        })}
+      </Table>
+    </TableContainer>
+  );
 
-  // return (<div>
-  //   <p>Not Authorized</p>
-  // </div>
-  // );
+}
+return (
+  <div>
+    Not authorized...
+  </div>
+)
 }

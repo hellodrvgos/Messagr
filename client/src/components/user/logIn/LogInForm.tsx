@@ -15,6 +15,11 @@ import Alert from '@mui/material/Alert';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import { Typography } from "@mui/material";
+import GoogleLogIn from "../googleLogIn/GoogleLogIn";
+
 export default function LoginForm() {
 
   const FormSchema = Yup.object().shape(
@@ -83,7 +88,11 @@ export default function LoginForm() {
             >
             {({errors, touched, handleChange}) => {
             return  <Form>
+              <Typography variant="h4" sx={{color: "blue", my: 2}}>
+                MESSAG[R]
+              </Typography>
             <TextField
+            variant="filled"
                 margin="normal"
                 required
                 fullWidth
@@ -98,6 +107,7 @@ export default function LoginForm() {
               <div className='error-message'> {errors.email}</div>  
             ): null}
             <TextField
+            variant="filled"
                 margin="normal"
                 required
                 fullWidth
@@ -111,19 +121,28 @@ export default function LoginForm() {
             {errors.password && touched.password ? (
               <div className='error-message'> {errors.password}</div>  
             ): null}
-            <FormControlLabel
+            <Stack spacing={3}>
+            {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-            />
+            /> */}
+              <Link href="#" variant="body2" sx={{textAlign: "left"}}>
+              Forgot password?
+              </Link>
             <Button
                 type="submit"
-                fullWidth
+                // fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
             >
                 Sign In
             </Button>
-            <Grid container>
+            <Link href="#" variant="body2">
+                  Don't have an account? Sign Up
+              </Link>
+            <Divider />
+            <GoogleLogIn/>
+                        {/* <Grid container>
               <Grid item xs>
               <Link href="#" variant="body2">
                   Forgot password?
@@ -134,7 +153,8 @@ export default function LoginForm() {
                   Don't have an account? Sign Up
               </Link>
               </Grid>
-            </Grid>
+            </Grid> */}
+            </Stack>
             </Form>
             }}
           </Formik>

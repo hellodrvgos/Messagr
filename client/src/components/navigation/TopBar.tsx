@@ -1,14 +1,68 @@
-import { Link } from "react-router-dom";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
-export default function TopBar() {
-    return (
-        <div>
-            <Link to="">Home</Link> <span> | </span>
-            <Link to="/register">Register</Link> <span> | </span>
-            <Link to="/login">Login</Link> <span> | </span>
-            <Link to="/profile">Profile</Link> <span> | </span>
-            <Link to="/update">Update Info</Link> <span> | </span>
-            <Link to="/chat">Chat</Link>
-        </div>
-    )
+import Link from '@mui/material/Link';
+
+export default function MenuAppBar() {
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <Box sx={{ flexGrow: 1, zIndex: "999" }}>
+      <AppBar position="static">
+        <Toolbar>
+          {auth && (
+            <div>
+              <IconButton
+                size="large"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem><Link href="/login" variant="body1" sx={{textDecoration: "none"}}><Typography>Login</Typography></Link></MenuItem>
+                <MenuItem><Link href="/register" variant="body1" sx={{textDecoration: "none"}}><Typography>Register</Typography></Link></MenuItem>
+                <MenuItem><Link href="/profile" variant="body1" sx={{textDecoration: "none"}}><Typography>Profile</Typography></Link></MenuItem>
+                <MenuItem><Link href="/update" variant="body1" sx={{textDecoration: "none"}}><Typography>Update</Typography></Link></MenuItem>
+                <MenuItem><Link href="/chat" variant="body1" sx={{textDecoration: "none"}}><Typography>Chat</Typography></Link></MenuItem>
+                <MenuItem><Link href="/user-list" variant="body1" sx={{textDecoration: "none"}}><Typography>UserList</Typography></Link></MenuItem>
+              </Menu>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
 }
