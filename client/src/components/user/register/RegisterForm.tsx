@@ -32,6 +32,7 @@ export default function RegisterForm() {
       ),
     firstName: Yup.string().required("Please Enter your First Name"),
     lastName: Yup.string().required("Please Enter your Last Name"),
+    
   });
   // type
   type InitialValues = {
@@ -79,6 +80,11 @@ export default function RegisterForm() {
         password: values.password,
         firstName: values.firstName,
         lastName: values.lastName,
+        location: values.location,
+        phone: values.phone,
+        role: values.role,
+        gitHub: values.gitHub,
+        avatar: values.avatar,
       })
       .then((response) => response.data)
       .then((data) => {
@@ -196,8 +202,8 @@ export default function RegisterForm() {
                           size="small"
                         ></TextField>
                         <TextField
-                          label="phonenumber"
-                          name="phonenumber"
+                          label="phone"
+                          name="phone"
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
