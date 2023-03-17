@@ -1,6 +1,5 @@
 import React from "react";
 import { Paper, Typography } from "@mui/material";
-import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 
 import "./SuccessMessage.css";
 

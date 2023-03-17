@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { User} from "../../types/types";
 
 type InitialState = {
-    userInfo: User
+    userInfo: User,
+    loginInfo: boolean,
 }
 
 const initialState: InitialState = {
@@ -21,6 +22,7 @@ const initialState: InitialState = {
         gitHub: "",
         phone: "",
     },
+    loginInfo: false,
 }
 
 const userInfoSlice = createSlice({
@@ -29,6 +31,10 @@ const userInfoSlice = createSlice({
     reducers: {
         getUserInfo: (state, action) => {
             state.userInfo = action.payload;
+        },
+        getLogInInfo: (state, action)=>{
+            state.loginInfo = action.payload;
+            localStorage.setItem("loginInfo", JSON.stringify(state.loginInfo))
         }
     }
 })

@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-//mui 
+//mui
 import {
   Button,
   TextField,
@@ -132,8 +132,8 @@ export default function RegisterForm() {
                     <div className="form-field">
                       <div className="first-column">
                         <TextField
-                        required
-                          label="firstName"
+                          required
+                          label="First name"
                           name="firstName"
                           onChange={handleChange}
                           sx={{ mt: 2, mb: 2, width: 250, fontSize: "10px" }}
@@ -143,8 +143,8 @@ export default function RegisterForm() {
                           <div className="error-message"> {errors.email}</div>
                         ) : null}
                         <TextField
-                        required
-                          label="lastName"
+                          required
+                          label="Last name"
                           name="lastName"
                           sx={{ mt: 2, mb: 2, width: 250 }}
                           onChange={handleChange}
@@ -155,7 +155,7 @@ export default function RegisterForm() {
                         ) : null}
 
                         <TextField
-                        required
+                          required
                           label="Email"
                           name="email"
                           onChange={handleChange}
