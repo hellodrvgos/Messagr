@@ -14,7 +14,7 @@ type User = {
 }
 
 const ChatsPage = (username: User) => {
-  console.log(username.firstName, "user")
+  //console.log(username.firstName, "user")
 
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
@@ -30,7 +30,7 @@ const ChatsPage = (username: User) => {
   })
   .catch(e => console.log(e, "error"));
 
-  console.log(isAuth, "isAuth")
+  //console.log(isAuth, "isAuth")
 
   const chatProps = useMultiChatLogic(
     '0b414e0f-4fb4-4dc3-bae8-3541406bf83d',

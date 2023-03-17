@@ -9,7 +9,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
+import axios from "axios"
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "../../../redux/store";
@@ -18,6 +19,9 @@ import fetchUsersData from "../../../redux/thunk/userThunk";
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 import BlockIcon from '@mui/icons-material/Block';
+import { IconButton } from '@mui/material';
+import { User } from '../../../types/types';
+import UserItem from '../userItem/UserItem';
 
 import { getUserInformation } from "../../../redux/thunk/userInformation";
 
@@ -30,17 +34,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
 
 export default function UserListTable() {
 
