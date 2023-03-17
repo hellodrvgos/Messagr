@@ -140,7 +140,7 @@ export default function UpdateProfileForm() {
                     <div className="form-field">
                       <div className="first-column">
                         <TextField
-                          label="firstName"
+                          label={userInfoDetails?.firstName}
                           name="firstName"
                           defaultValue={userInfoDetails.firstName}
                           onChange={handleChange}
@@ -154,7 +154,7 @@ export default function UpdateProfileForm() {
                           </div>
                         ) : null}
                         <TextField
-                          label="lastName"
+                          label={userInfoDetails?.lastName}
                           name="lastName"
                           defaultValue={userInfoDetails.lastName}
                           sx={{ mt: 1, width: 250 }}
@@ -166,7 +166,8 @@ export default function UpdateProfileForm() {
                         ) : null}
 
                         <TextField
-                          label="Email"
+                          disabled
+                          label={userInfoDetails?.email}
                           name="email"
                           defaultValue={userInfoDetails.email}
                           onChange={handleChange}
@@ -177,14 +178,16 @@ export default function UpdateProfileForm() {
                           <div className="error-message"> {errors.email}</div>
                         ) : null}
                         <TextField
-                          label="password"
+                        disabled
+                          //label={userInfoDetails?.password}
+                          label = "password"
                           name="password"
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
                         ></TextField>
                         <TextField
-                          label="Location"
+                          label={userInfoDetails?.location}
                           name="location"
                           defaultValue={userInfoDetails.location}
                           onChange={handleChange}
@@ -195,7 +198,7 @@ export default function UpdateProfileForm() {
                       <div className="second-column">
                         <TextField
                           placeholder="Your role..."
-                          label="role"
+                          label={userInfoDetails?.role}
                           name="role"
                           defaultValue={userInfoDetails.role}
                           onChange={handleChange}
@@ -203,7 +206,7 @@ export default function UpdateProfileForm() {
                           size="small"
                         ></TextField>
                         <TextField
-                          label="gitHub"
+                          label={userInfoDetails?.gitHub}
                           name="gitHub"
                           defaultValue={userInfoDetails.gitHub}
                           onChange={handleChange}
@@ -211,7 +214,7 @@ export default function UpdateProfileForm() {
                           size="small"
                         ></TextField>
                         <TextField
-                          label="Phone"
+                          label={userInfoDetails?.phone}
                           name="phone"
                           defaultValue={userInfoDetails.phone}
                           onChange={handleChange}
@@ -219,7 +222,7 @@ export default function UpdateProfileForm() {
                           size="small"
                         ></TextField>
                         <TextField
-                          label="avatar"
+                          label={userInfoDetails?.avatar}
                           name="avatar"
                           defaultValue={userInfoDetails.avatar}
                           onChange={handleChange}
