@@ -38,7 +38,7 @@ export default function LoginForm() {
 
   const loginUrl = "http://localhost:8002/users/login";
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const [isShown, setIsShown] = useState(false);
@@ -135,7 +135,11 @@ export default function LoginForm() {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
             /> */}
-                    <Link href="#" variant="body2" sx={{ textAlign: "left" }}>
+                    <Link
+                      href="/reset-password"
+                      variant="body2"
+                      sx={{ textAlign: "left" }}
+                    >
                       Forgot password?
                     </Link>
                     <Button

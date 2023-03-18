@@ -28,7 +28,6 @@ import { TableSortLabel } from "@mui/material";
 
 import { User } from "../../../types/types";
 
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -56,7 +55,6 @@ export default function UserListTable() {
     (state: RootState) => state.userinformation.userInfo
   );
 
-
   const sortAscendingHandler = () => {
     dispatch(userActions.sortAscending());
     setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
@@ -71,7 +69,6 @@ export default function UserListTable() {
 
 
   const filteredUserList = userList.filter((user)=> user._id !== userInfo._id);
-
 
   //console.log(filteredUserList, "filteredUserList")
 
