@@ -97,9 +97,9 @@ export default function LoginForm() {
             {({ errors, touched, handleChange }) => {
               return (
                 <Form>
-                  <Typography variant="h4" sx={{ color: "blue", my: 2 }}>
-                    MESSAG[R]
-                  </Typography>
+              <Typography variant="h4" sx={{ my: 2 }}>
+                Welcome back
+              </Typography>
                   <TextField
                     variant="filled"
                     margin="normal"
@@ -109,7 +109,7 @@ export default function LoginForm() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
-                    autoFocus
+                    // autoFocus
                     onChange={handleChange}
                   />
                   {errors.email && touched.email ? (
@@ -146,23 +146,8 @@ export default function LoginForm() {
                     >
                       Sign In
                     </Button>
-                    <Link href="#" variant="body2">
-                      Don't have an account? Sign Up
-                    </Link>
-                    <Divider />
+                    <Typography variant="h6" sx={{color: "gray"}}>OR</Typography>
                     <GoogleLogIn />
-                    {/* <Grid container>
-              <Grid item xs>
-              <Link href="#" variant="body2">
-                  Forgot password?
-              </Link>
-              </Grid>
-              <Grid item>
-              <Link href="#" variant="body2">
-                  Don't have an account? Sign Up
-              </Link>
-              </Grid>
-            </Grid> */}
                   </Stack>
                 </Form>
               );

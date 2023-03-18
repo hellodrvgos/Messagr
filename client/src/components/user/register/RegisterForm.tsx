@@ -17,6 +17,9 @@ import {
 import Alert, { AlertColor } from "@mui/material/Alert";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Stack from "@mui/material/Stack";
+
+import GoogleLogIn from "../googleLogIn/GoogleLogIn";
 
 export default function RegisterForm() {
   // schema
@@ -32,6 +35,7 @@ export default function RegisterForm() {
       ),
     firstName: Yup.string().required("Please Enter your First Name"),
     lastName: Yup.string().required("Please Enter your Last Name"),
+    
   });
   // type
   type InitialValues = {
@@ -39,11 +43,11 @@ export default function RegisterForm() {
     lastName: string;
     email: string;
     password: string;
-    location: string;
-    phone: string;
-    role: string;
-    gitHub: string;
-    avatar: string;
+    // location: string;
+    // phone: string;
+    // role: string;
+    // gitHub: string;
+    // avatar: string;
   };
   // initial values
   const initialValues: InitialValues = {
@@ -51,11 +55,11 @@ export default function RegisterForm() {
     lastName: "",
     email: "",
     password: "",
-    location: "",
-    phone: "",
-    role: "",
-    gitHub: "",
-    avatar: "",
+    // location: "",
+    // phone: "",
+    // role: "",
+    // gitHub: "",
+    // avatar: "",
   };
 
   const registerUrl = "http://localhost:8002/users/register";
@@ -79,6 +83,11 @@ export default function RegisterForm() {
         password: values.password,
         firstName: values.firstName,
         lastName: values.lastName,
+        // location: values.location,
+        // phone: values.phone,
+        // role: values.role,
+        // gitHub: values.gitHub,
+        // avatar: values.avatar,
       })
       .then((response) => response.data)
       .then((data) => {
@@ -99,8 +108,19 @@ export default function RegisterForm() {
   }
 
   return (
-    <div className="login-page-update">
-      <div className="form-container">
+    <div >
+      <Box
+        sx={{
+          my: 1,
+          mx: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{ mt: 1, display: "flex", flexDirection: "column", rowGap: 3 }}
+        >
         <Formik
           initialValues={initialValues}
           validationSchema={FormSchema}
@@ -109,139 +129,91 @@ export default function RegisterForm() {
           {({ errors, touched, handleChange }) => {
             return (
               <Form>
-                <Paper
-                  sx={{
-                    width: 650,
-                    mt: 10,
-                    height: 550,
-                    mb: 5,
-                    borderRadius: 10,
-                  }}
+              <Typography variant="h4" sx={{ my: 2 }}>
+                Create new account
+              </Typography>
+              <Box sx={{display: "flex", flexDirection:"row", flexWrap: "wrap", columnGap: 2, justifyContent: "left" }}>
+              <TextField
+              variant="filled"
+              margin="normal"
+                required
+                label="First Name"
+                name="firstName"
+                onChange={handleChange}
+                sx={{ mt: 2, mb: 2, width: "48%", fontSize: "10px" }}
+                size="small"
+              ></TextField>
+              {errors.email && touched.email ? (
+                <div className="error-message"> {errors.email}</div>
+              ) : null}
+              <TextField
+              variant="filled"
+              margin="normal"
+                required
+                label="Last Name"
+                name="lastName"
+                sx={{ mt: 2, mb: 2, width: "48%" }}
+                onChange={handleChange}
+                size="small"
+              />
+              {errors.lastName && touched.lastName ? (
+                <div className="error-message">{errors.lastName}</div>
+              ) : null}
+              <TextField
+                variant="filled"
+                margin="normal"
+                required
+                label="Email"
+                name="email"
+                onChange={handleChange}
+                sx={{ width: "48%", mb: 2, mt: 2, fontSize: "10px" }}
+                size="small"
+              ></TextField>
+              {errors.email && touched.email ? (
+                <div className="error-message"> {errors.email}</div>
+              ) : null}
+              <TextField
+                variant="filled"
+                margin="normal"
+                required
+                label="Password"
+                type="password"
+                name="password"
+                autoComplete="new-password"
+                onChange={handleChange}
+                sx={{ width: "48%", mb: 2, mt: 2, fontSize: "10px" }}
+                size="small"
+              ></TextField>
+              {errors.email && touched.email ? (
+                <div className="error-message"> {errors.email}</div>
+              ) : null}
+              </Box>
+              <Stack spacing={3}>
+                <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="I agree with privacy policy"
+        />
+                {/* <Link href="#" variant="body2" sx={{ textAlign: "left" }}>
+                  Forgot password?
+                </Link> */}
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
                 >
-                  <Typography sx={{ fontSize: "30px", m: 3 }}>
-                    Register
-                  </Typography>
-                  <Divider />
-                  <div className="form-container">
-                    <div className="form-field">
-                      <div className="first-column">
-                        <TextField
-                          required
-                          label="First name"
-                          name="firstName"
-                          onChange={handleChange}
-                          sx={{ mt: 2, mb: 2, width: 250, fontSize: "10px" }}
-                          size="small"
-                        ></TextField>
-                        {errors.email && touched.email ? (
-                          <div className="error-message"> {errors.email}</div>
-                        ) : null}
-                        <TextField
-                          required
-                          label="Last name"
-                          name="lastName"
-                          sx={{ mt: 2, mb: 2, width: 250 }}
-                          onChange={handleChange}
-                          size="small"
-                        />
-                        {errors.lastName && touched.lastName ? (
-                          <div className="error-message">{errors.lastName}</div>
-                        ) : null}
-
-                        <TextField
-                          required
-                          label="Email"
-                          name="email"
-                          onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
-                          size="small"
-                        ></TextField>
-                        {errors.email && touched.email ? (
-                          <div className="error-message"> {errors.email}</div>
-                        ) : null}
-                        <TextField
-                          required
-                          label="password"
-                          type="password"
-                          name="password"
-                          autoComplete="new-password"
-                          onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
-                          size="small"
-                        ></TextField>
-                        {errors.email && touched.email ? (
-                          <div className="error-message"> {errors.email}</div>
-                        ) : null}
-                        <TextField
-                          label="Location"
-                          name="location"
-                          onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
-                          size="small"
-                        ></TextField>
-                      </div>
-                      <div className="second-column">
-                        <TextField
-                          label="role"
-                          name="role"
-                          onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
-                          size="small"
-                        ></TextField>
-                        <TextField
-                          label="gitHub"
-                          name="gitHub"
-                          onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
-                          size="small"
-                        ></TextField>
-                        <TextField
-                          label="phonenumber"
-                          name="phonenumber"
-                          onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
-                          size="small"
-                        ></TextField>
-                        <TextField
-                          label="avatar"
-                          name="avatar"
-                          onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
-                          size="small"
-                        ></TextField>
-                      </div>
-                    </div>
-                  </div>
-                  <FormControlLabel
-                    control={
-                      <Checkbox value="allowExtraEmails" color="primary" />
-                    }
-                    label="Subscribe to Newsletter"
-                  />
-                  <div>
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{
-                        width: "250px",
-                        height: "40px",
-                        mt: 1,
-                      }}
-                    >
-                      Register
-                    </Button>
-                  </div>
-                </Paper>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Form>
+                  Sign Up
+                </Button>
+                <Typography variant="h6" sx={{color: "gray"}}>OR</Typography>
+                <GoogleLogIn />
+              </Stack>
+            </Form>
             );
           }}
         </Formik>
         {isShown && <Alert severity={alertSeverity}>{alertMessage}</Alert>}
-      </div>
+        </Box>
+      </Box>
     </div>
   );
 }
