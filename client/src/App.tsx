@@ -12,6 +12,7 @@ import UserRegister from "./pages/UserRegister";
 import UserProfilePage from "./pages/UserProfilePage";
 import UserList from "./components/user/userList/UserList";
 import SuccessMessage from "./components/user/update/successOnUpdate/successOnUpdate/SuccessMessage";
+import ResetPassword from "./components/user/resetPassword/ResetPassword";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/chat" element={<Chat />}></Route>
         <Route path="/user-list" element={<UserList />}></Route>
         <Route path="/success" element={<SuccessMessage />}></Route>
+        <Route path="/reset-password" element={<ResetPassword />}></Route>
       </Routes>
     </div>
   );

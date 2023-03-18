@@ -139,7 +139,7 @@ export default function ResetPassword() {
                     <p className="error-message"> {errors.password}</p>
                   ) : null}
                   <FormControl
-                    sx={{ width: "55ch" }}
+                    sx={{ mt: 1, width: "55ch" }}
                     variant="outlined"
                     size="small"
                   >
