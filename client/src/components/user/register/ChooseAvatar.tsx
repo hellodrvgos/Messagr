@@ -8,7 +8,14 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import Avatars from './Avatars';
+import Avatars from './BoysAvatars';
+import AvatarTabs from './AvatarTabs';
+
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+import Box from '@mui/material/Box';
+import { SxProps } from "@mui/material";
+import { borderRadius } from '@mui/system';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -59,42 +66,39 @@ export default function ChooseAvatar() {
     setOpen(false);
   };
 
+  const sx: SxProps = {
+    "& .MuiDialog-container": {
+      width: "600px",
+      marginLeft: 12,
+      mt: 2,
+    }
+ };
+
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open dialog
+      <Box sx={{ textAlign: "left", mt: 1 }}>
+      <Button variant="outlined" onClick={handleClickOpen} size={"small"} startIcon={<AccountCircleIcon/>}>
+        Choose avatar
       </Button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        sx={sx}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+        {/* <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
           Modal title
-        </BootstrapDialogTitle>
-        <DialogContent dividers>
-          {/* <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-            magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-            ullamcorper nulla non metus auctor fringilla.
-          </Typography> */}
-          <Avatars/>
+        </BootstrapDialogTitle> */}
+        <DialogContent dividers >
+          <AvatarTabs/>
         </DialogContent>
-        <DialogActions>
+        {/* <DialogActions>
           <Button autoFocus onClick={handleClose}>
             Save changes
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </BootstrapDialog>
+      </Box>
     </div>
   );
 }

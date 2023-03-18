@@ -190,14 +190,14 @@ export default function RegisterForm() {
               ) : null}
               </Box>
               <Stack spacing={3}>
-                <FormControlLabel
+                {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="I agree with privacy policy"
-        />
+        /> */}
                 {/* <Link href="#" variant="body2" sx={{ textAlign: "left" }}>
                   Forgot password?
                 </Link> */}
-                <ChooseAvatar/>
+                <ChooseAvatar />
                 <Button
                   type="submit"
                   fullWidth

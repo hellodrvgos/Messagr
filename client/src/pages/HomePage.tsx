@@ -24,7 +24,7 @@ export default function HomePage() {
         <Slide direction="right" in={!checked} mountOnEnter unmountOnExit >
         <div className="login-form-wrapper">
       <LoginForm />
-      <Typography sx={{mt: 3}}>Don't have an account? <Link onClick={handleChange} variant="body2" sx={{cursor: "pointer"}}>
+      <Typography sx={{mt: 3}}>Don't have an account? <Link onClick={handleChange} variant="body2" sx={{cursor: "pointer", fontWeight: 800}}>
         Sign Up
       </Link></Typography>
       </div>
@@ -32,7 +32,7 @@ export default function HomePage() {
         <Slide direction="right" in={checked} mountOnEnter unmountOnExit timeout={{enter: 800}}>
         <div className="register-form-wrapper">
       <RegisterForm/>
-      <Typography sx={{mt: 3}}>Already have an account? <Link onClick={handleChange} variant="body2" sx={{cursor: "pointer"}}>
+      <Typography sx={{mt: 3}}>Already have an account? <Link onClick={handleChange} variant="body2" sx={{cursor: "pointer", fontWeight: 800}}>
           Sign In
         </Link></Typography>
       </div>
