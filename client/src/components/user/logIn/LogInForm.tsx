@@ -63,6 +63,7 @@ export default function LoginForm() {
         if (!data.message) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("id", data.id);
+          dispatch(userInfoActions.getLogInInfo(true));
           navigate("/chat");
           return;
         }
