@@ -45,8 +45,18 @@ export default function UserItem({ user }: Prop) {
   const token = localStorage.getItem("token");
 
   const id = user._id;
-  console.log(user, "user");
+
   function adminHandler() {
+    if (bannedValue) {
+      setAdminValue(false);
+      const url = `http://localhost:8002/users/adminstatus/${userId}`;
+      axios.put(
+        url,
+        { id: id, isAdmin: false },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      return;
+    }
     const url = `http://localhost:8002/users/adminstatus/${userId}`;
     axios.put(
       url,
@@ -64,6 +74,7 @@ export default function UserItem({ user }: Prop) {
     );
     setBannnedValue(!bannedValue);
   }
+
   function adminandBannedHandler() {
     bannedHandler();
     if (!bannedValue) {
@@ -87,7 +98,9 @@ export default function UserItem({ user }: Prop) {
         <StyledTableCell align="right">
           <IconButton onClick={adminHandler}>
             <SupervisorAccountIcon
-              sx={{ color: adminValue ? "green" : "black" }}
+              sx={{
+                color: bannedValue ? "black" : adminValue ? "green" : "black",
+              }}
             />
           </IconButton>
         </StyledTableCell>
