@@ -13,12 +13,13 @@ import UserProfilePage from "./pages/UserProfilePage";
 import UserList from "./components/user/userList/UserList";
 import SuccessMessage from "./components/user/update/successOnUpdate/successOnUpdate/SuccessMessage";
 import ResetPassword from "./components/user/resetPassword/ResetPassword";
+import CollapsibleTable from "./components/user/userList/NewUserList"
 
 function App() {
   return (
     <div className="App">
       <CssBaseline />
-      <TopBar />
+      {/* <TopBar /> */}
       <Routes>
         <Route path="" element={<HomePage />}></Route>
         <Route path="/login" element={<UserLogin />}></Route>
@@ -29,6 +30,7 @@ function App() {
         <Route path="/user-list" element={<UserList />}></Route>
         <Route path="/success" element={<SuccessMessage />}></Route>
         <Route path="/reset-password" element={<ResetPassword />}></Route>
+        <Route path="/userlist" element={<CollapsibleTable/>}></Route>
       </Routes>
     </div>
   );

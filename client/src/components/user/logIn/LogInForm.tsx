@@ -101,7 +101,7 @@ export default function LoginForm() {
                 Welcome back
               </Typography>
                   <TextField
-                    variant="filled"
+                    variant="standard"
                     margin="normal"
                     required
                     fullWidth
@@ -111,12 +111,13 @@ export default function LoginForm() {
                     autoComplete="email"
                     // autoFocus
                     onChange={handleChange}
+                    size="small"
                   />
                   {errors.email && touched.email ? (
                     <div className="error-message"> {errors.email}</div>
                   ) : null}
                   <TextField
-                    variant="filled"
+                    variant="standard"
                     margin="normal"
                     required
                     fullWidth
@@ -126,6 +127,7 @@ export default function LoginForm() {
                     id="password"
                     autoComplete="current-password"
                     onChange={handleChange}
+                    size="small"
                   />
                   {errors.password && touched.password ? (
                     <div className="error-message"> {errors.password}</div>
@@ -138,7 +140,7 @@ export default function LoginForm() {
                     <Link
                       href="/reset-password"
                       variant="body2"
-                      sx={{ textAlign: "left" }}
+                      sx={{ textAlign: "left", mt: 2 }}
                     >
                       Forgot password?
                     </Link>

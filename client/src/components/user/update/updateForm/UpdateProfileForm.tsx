@@ -21,6 +21,9 @@ import { getUserInformation } from "../../../../redux/thunk/userInformation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
+import ChooseAvatar from "../../register/ChooseAvatar";
+
+
 export default function UpdateProfileForm() {
   const userId = localStorage.getItem("id") || "{}";
 
@@ -84,34 +87,51 @@ if (userInfoDetails._id === "") {
   return <p>Loding</p>
 }
   return (
-    <div className="login-page-update">
-      <div className="form-container">
+    // <div className="login-page-update">
+    //   <div className="form-container">
+    <div>
+            <Box
+        sx={{
+          my: 1,
+          mx: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{ mt: 1, display: "flex", flexDirection: "column", rowGap: 3 }}
+        >
+
         <Formik initialValues={initialValues} onSubmit={updateUsersData}>
           {({ errors, touched, handleChange }) => {
             return (
               <Form>
-                <Paper
+                {/* <Paper
                   sx={{
                     width: 600,
-                    mt: 10,
+                    // mt: 10,
                     height: 550,
-                    mb: 50,
+                    // mb: 50,
                     borderRadius: 10,
                   }}
-                >
-                  <Typography sx={{ fontSize: "30px", m: 3 }}>
-                    Edit Detail
-                  </Typography>
-                  <Divider />
-                  <div className="form-container">
-                    <div className="form-field">
-                      <div className="first-column">
+                > */}
+              <Typography variant="h4" sx={{ my: 2 }}>
+                My contact details
+              </Typography>
+                  {/* <Divider /> */}
+                  <Box sx={{display: "flex", flexDirection:"row", flexWrap: "wrap", columnGap: 2, justifyContent: "left" }}>
+                  {/* <div className="form-container"> */}
+                    {/* <div className="form-field"> */}
+                      {/* <div className="first-column"> */}
                         <TextField
+                        variant="standard"
+                        margin="normal"
                           label="First Name"
                           name="firstName"
                           defaultValue={userInfoDetails.firstName}
                           onChange={handleChange}
-                          sx={{ mt: 5, width: 250, fontSize: "10px" }}
+                          sx={{ my: 2, width: "48%", fontSize: "10px" }}
                           size="small"
                         ></TextField>
                         {errors.firstName && touched.firstName ? (
@@ -121,12 +141,12 @@ if (userInfoDetails._id === "") {
                           </div>
                         ) : null}
                         <TextField
-                        
+                        variant="standard"
+                        margin="normal"
                           label="Last Name"
-                         
                           name="lastName"
                           defaultValue={userInfoDetails.lastName}
-                          sx={{ mt: 1, width: 250 }}
+                          sx={{ my: 2, width: "48%" }}
                           onChange={handleChange}
                           size="small"
                         />
@@ -136,90 +156,118 @@ if (userInfoDetails._id === "") {
 
                         <TextField
                           disabled
-                        
+                          variant="standard"
+                          margin="normal"
                           label="Email"
                           name="email"
                           defaultValue={userInfoDetails.email}
                           onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
+                          sx={{ width: "48%", my: 2, fontSize: "10px" }}
                           size="small"
                         ></TextField>
                         {errors.email && touched.email ? (
                           <div className="error-message"> {errors.email}</div>
                         ) : null}
-                        {/* <TextField
-                        disabled
+                        <TextField
+                          variant="standard"
+                          margin="normal"
                           //label={userInfoDetails?.password}
                           label = "Password"
                           name="password"
                           onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
+                          sx={{ width: "48%", my: 2, fontSize: "10px" }}
                           size="small"
-                        ></TextField> */}
+                        ></TextField>
+                          {errors.email && touched.email ? (
+                          <div className="error-message"> {errors.email}</div>
+                        ) : null}
                         <TextField
+                          variant="standard"
+                          margin="normal"
                           label="Location"
                           name="location"
                           defaultValue={userInfoDetails.location}
                           onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
+                          sx={{ width: "48%", my: 2, fontSize: "10px" }}
                           size="small"
                         ></TextField>
-                      </div>
-                      <div className="second-column">
+                          {errors.location && touched.location ? (
+                          <div className="error-message"> {errors.location}</div>
+                        ) : null}
+                      {/* </div> */}
+                      {/* <div className="second-column"> */}
                         <TextField
+                          variant="standard"
+                          margin="normal"
                           label="Role"
                           name="role"
                           defaultValue={userInfoDetails.role}
                           onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
+                          sx={{ width: "48%", my: 2, fontSize: "10px" }}
                           size="small"
                         ></TextField>
+                          {errors.role && touched.role ? (
+                          <div className="error-message"> {errors.role}</div>
+                        ) : null}
                         <TextField
-                          label="GitHub Profile"
+                          variant="standard"
+                          margin="normal"
+                          label="GitHub Username"
                           name="gitHub"
                           defaultValue={userInfoDetails.gitHub}
                           onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
+                          sx={{ width: "48%", my: 2, fontSize: "10px" }}
                           size="small"
                         ></TextField>
+                          {errors.gitHub && touched.gitHub ? (
+                          <div className="error-message"> {errors.gitHub}</div>
+                        ) : null}
                         <TextField
+                          variant="standard"
+                          margin="normal"
                           label="Phone Number"
                           name="phone"
                           defaultValue={userInfoDetails.phone}
                           onChange={handleChange}
-                          sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
+                          sx={{ width: "48%", my: 2, fontSize: "10px" }}
                           size="small"
                         ></TextField>
-                        <TextField
+                        {errors.phone && touched.phone ? (
+                          <div className="error-message"> {errors.phone}</div>
+                        ) : null}
+                        {/* <TextField
                           label="Avatar"
                           name="avatar"
                           defaultValue={userInfoDetails.avatar}
                           onChange={handleChange}
                           sx={{ width: 250, mb: 2, mt: 2, fontSize: "10px" }}
                           size="small"
-                        ></TextField>
-                      </div>
-                    </div>
-                  </div>
+                        ></TextField> */}
+                      {/* </div> */}
+                    {/* </div> */}
+                  {/* </div> */}
+                  <Box sx={{ width: "48%", my: 2}}>
+                  <ChooseAvatar />
+                  </Box>
+                  </Box>
                   <Button
-                    type="submit"
-                    sx={{
-                      width: "250px",
-                      height: "40px",
-                      mt: 1,
-                    }}
-                    variant="outlined"
-                  >
-                    Update
-                  </Button>
-                </Paper>
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 5 }}
+                >
+                  Update Information
+                </Button>
+                {/* </Paper> */}
               </Form>
             );
           }}
         </Formik>
+        </Box>
+      </Box>
       </div>
-      <Box sx={{ mb: 50 }}></Box>
-    </div>
+      // {/* <Box sx={{ mb: 50 }}></Box> */}
+    // </div>
   );
 }
 

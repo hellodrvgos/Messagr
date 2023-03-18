@@ -18,7 +18,8 @@ export default function HomePage() {
   };
 
   return (
-    <div className="login-page">
+    // <div className="login-page-bg-gradient">
+          <div className="login-page">
     <Box sx={{ height: "100%" }}>
       <Box sx={{ width: `calc(600px + 16px)` }}>
         <Slide direction="right" in={!checked} mountOnEnter unmountOnExit >
@@ -40,5 +41,6 @@ export default function HomePage() {
       </Box>
     </Box>
     </div>
+    // </div>
   );
 }

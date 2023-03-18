@@ -135,7 +135,7 @@ export default function RegisterForm() {
               </Typography>
               <Box sx={{display: "flex", flexDirection:"row", flexWrap: "wrap", columnGap: 2, justifyContent: "left" }}>
               <TextField
-              variant="filled"
+              variant="standard"
               margin="normal"
                 required
                 label="First Name"
@@ -148,7 +148,7 @@ export default function RegisterForm() {
                 <div className="error-message"> {errors.email}</div>
               ) : null}
               <TextField
-              variant="filled"
+              variant="standard"
               margin="normal"
                 required
                 label="Last Name"
@@ -161,7 +161,7 @@ export default function RegisterForm() {
                 <div className="error-message">{errors.lastName}</div>
               ) : null}
               <TextField
-                variant="filled"
+                variant="standard"
                 margin="normal"
                 required
                 label="Email"
@@ -174,7 +174,7 @@ export default function RegisterForm() {
                 <div className="error-message"> {errors.email}</div>
               ) : null}
               <TextField
-                variant="filled"
+                variant="standard"
                 margin="normal"
                 required
                 label="Password"
