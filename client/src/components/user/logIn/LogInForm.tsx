@@ -19,11 +19,16 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import { Typography } from "@mui/material";
 import GoogleLogIn from "../googleLogIn/GoogleLogIn";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
 import { userInfoActions } from "../../../redux/slice/userInformation";
+import { userActions } from "../../../redux/slice/userSlice";
 
 export default function LoginForm() {
+  // state
+  const bannedMsg = useSelector(
+    (state: RootState) => state.users.bannedMessage
+  );
   const FormSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email")
@@ -67,6 +72,7 @@ export default function LoginForm() {
           navigate("/chat");
           return;
         }
+        dispatch(userActions.displayBannedMessage(data.message));
         showAlert(data.message);
       });
   }
@@ -98,9 +104,9 @@ export default function LoginForm() {
             {({ errors, touched, handleChange }) => {
               return (
                 <Form>
-              <Typography variant="h4" sx={{ my: 2 }}>
-                Welcome back
-              </Typography>
+                  <Typography variant="h4" sx={{ my: 2 }}>
+                    Welcome back
+                  </Typography>
                   <TextField
                     variant="filled"
                     margin="normal"
@@ -143,6 +149,9 @@ export default function LoginForm() {
                     >
                       Forgot password?
                     </Link>
+                    {bannedMsg ? (
+                      <div className="error-message">{bannedMsg}</div>
+                    ) : null}
                     <Button
                       type="submit"
                       // fullWidth
@@ -151,7 +160,9 @@ export default function LoginForm() {
                     >
                       Sign In
                     </Button>
-                    <Typography variant="h6" sx={{color: "gray"}}>OR</Typography>
+                    <Typography variant="h6" sx={{ color: "gray" }}>
+                      OR
+                    </Typography>
                     <GoogleLogIn />
                   </Stack>
                 </Form>
