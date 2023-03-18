@@ -4,9 +4,11 @@ import { User } from "../../types/types";
 
 type InitialState = {
   userList: User[];
+  bannedMessage: string;
 };
 const initialState: InitialState = {
   userList: [],
+  bannedMessage: "",
 };
 const usersSlice = createSlice({
   name: "users",
@@ -14,6 +16,9 @@ const usersSlice = createSlice({
   reducers: {
     getUserList: (state, action) => {
       state.userList = action.payload;
+    },
+    displayBannedMessage: (state, action) => {
+      state.bannedMessage = action.payload;
     },
     sortAscending: (state) => {
       state.userList.sort((a, b) =>
