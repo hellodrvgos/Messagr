@@ -68,7 +68,7 @@ export default function UserListTable() {
   };
 
 
-  // const filteredUserList = userList.filter((user)=> user._id !== userInfo._id);
+  const filteredUserList = userList.filter((user)=> user._id !== userInfo._id);
 
   //console.log(filteredUserList, "filteredUserList")
 
