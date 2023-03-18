@@ -26,9 +26,6 @@ import { userActions } from "../../../redux/slice/userSlice";
 
 export default function LoginForm() {
   // state
-  const bannedMsg = useSelector(
-    (state: RootState) => state.users.bannedMessage
-  );
   const FormSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email")
@@ -72,7 +69,6 @@ export default function LoginForm() {
           navigate("/chat");
           return;
         }
-        dispatch(userActions.displayBannedMessage(data.message));
         showAlert(data.message);
       });
   }
@@ -149,9 +145,6 @@ export default function LoginForm() {
                     >
                       Forgot password?
                     </Link>
-                    {bannedMsg ? (
-                      <div className="error-message">{bannedMsg}</div>
-                    ) : null}
                     <Button
                       type="submit"
                       // fullWidth
