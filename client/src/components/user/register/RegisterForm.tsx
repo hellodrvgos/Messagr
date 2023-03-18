@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 
 import GoogleLogIn from "../googleLogIn/GoogleLogIn";
+import ChooseAvatar from "./ChooseAvatar";
 
 export default function RegisterForm() {
   // schema
@@ -196,6 +197,7 @@ export default function RegisterForm() {
                 {/* <Link href="#" variant="body2" sx={{ textAlign: "left" }}>
                   Forgot password?
                 </Link> */}
+                <ChooseAvatar/>
                 <Button
                   type="submit"
                   fullWidth
