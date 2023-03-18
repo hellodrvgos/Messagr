@@ -64,7 +64,10 @@ export const loginWithPasswordController = async (
       res.json({ message: `No user with email ${req.body.email}` });
       return;
     }
-
+    if (userData.isBanned === true) {
+      res.json({ message: "You are banned!" });
+      return;
+    }
     const passwordDB = userData.password;
     const plainPassword = req.body.password;
 
