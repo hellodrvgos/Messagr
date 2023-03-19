@@ -67,8 +67,7 @@ export default function UserListTable() {
     // setOrderDirection("desc");
   };
 
-
-  const filteredUserList = userList.filter((user)=> user._id !== userInfo._id);
+  const filteredUserList = userList.filter((user) => user._id !== userInfo._id);
 
   //console.log(filteredUserList, "filteredUserList")
 
@@ -101,6 +100,7 @@ export default function UserListTable() {
               <StyledTableCell align="right">E-mail</StyledTableCell>
               <StyledTableCell align="right">Admin</StyledTableCell>
               <StyledTableCell align="right">Banned</StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
             </TableRow>
           </TableHead>
           {filteredUserList.map((user, index) => {
