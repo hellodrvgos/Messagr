@@ -18,6 +18,7 @@ import { getUserInformation } from "../../../redux/thunk/userInformation";
 import { userActions } from "../../../redux/slice/userSlice";
 import UserItem from "../userItem/UserItem";
 
+
 export default function CollapsibleTable() {
   const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("asc");
   const userId = localStorage.getItem("id") || "{}";
@@ -81,6 +82,7 @@ export default function CollapsibleTable() {
           </Table>
         </TableContainer>
       </Box>
+
     </div>
   );
 }
