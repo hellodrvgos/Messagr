@@ -22,43 +22,42 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    // required: true,
   },
   firstName: {
     type: String,
-    default: ""
+    default: "",
   },
   lastName: {
     type: String,
-    default: ""
+    default: "",
   },
   isAdmin: {
     type: Boolean,
-    default: false
+    default: false,
   },
   isBanned: {
     type: Boolean,
-    default: false
+    default: false,
   },
   avatar: {
     type: String,
-    default: ""
+    default: "",
   },
   role: {
     type: String,
-    default: ""
+    default: "",
   },
   location: {
     type: String,
-    default: ""
+    default: "",
   },
   gitHub: {
     type: String,
-    default: ""
+    default: "",
   },
   phone: {
     type: String,
-    default: ""
+    default: "",
   },
 });
 

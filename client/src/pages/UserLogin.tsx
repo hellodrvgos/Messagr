@@ -1,17 +1,10 @@
-import GoogleLogIn from "../components/user/googleLogIn/GoogleLogIn";
-// import LoginForm from "../components/user/logIn/LogInForm";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import { Theme } from "@mui/material/styles";
+import LoginForm from "../components/user/logIn/LogInForm";
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Switch from '@mui/material/Switch';
-import Paper from '@mui/material/Paper';
-import Slide from '@mui/material/Slide';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { Theme } from '@mui/material/styles';
-import LoginForm from '../components/user/logIn/LogInForm';
-
-import "../App.css"
-import RegisterForm from "../components/user/register/RegisterForm";
+import "../App.css";
 
 const icon = (
   <Paper sx={{ m: 1 }} elevation={4}>
@@ -30,37 +23,15 @@ const icon = (
 );
 
 export default function UserLogin() {
-
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
-  //
   return (
     <div className="login-page">
-
-{/* <Box sx={{ height: "100%" }}>
-      <Box sx={{ width: `calc(500px + 16px)` }}>
-        <Slide direction="right" in={checked} mountOnEnter unmountOnExit >
-        <div className="login-form-wrapper">
-      <LoginForm />
-      <button onClick={handleChange}>Login</button>
-      </div>
-        </Slide>
-        <Slide direction="right" in={!checked} mountOnEnter unmountOnExit timeout={{enter: 800}} >
-        <div className="login-form-wrapper">
-      <RegisterForm/>
-      <button onClick={handleChange}>Register</button>
-      </div>
-        </Slide>
-      </Box>
-    </Box> */}
-
       <div className="login-form-wrapper">
-      <LoginForm />
-      {/* <RegisterForm/> */}
-      {/* <GoogleLogIn /> */}
+        <LoginForm />
       </div>
     </div>
   );

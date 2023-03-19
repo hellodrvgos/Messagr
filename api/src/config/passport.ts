@@ -23,21 +23,6 @@ export const jwtStrategy = new JwtStrategy(
   }
 );
 
-// export const adminStrategy = new JwtStrategy(
-//   {
-//     secretOrKey: JWT_SECRET,
-//     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-//   },
-//   async (payload, done) => {
-//     const userId = payload.id;
-//     const foundUser = await UserServices.findUserByIdAdmin(userId);
-//     if (!foundUser) {
-//       return "No user with admin true found.";
-//     }
-//     done(null, foundUser);
-//   }
-// );
-
 export const googleStrategy = new GoogleTokenStrategy(
   { clientID: CLIENT_ID },
   async (parsedToken, googleId: string, done) => {

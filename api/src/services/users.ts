@@ -14,15 +14,10 @@ const findUserById = async (id: string): Promise<UserDocument | null> => {
   return foundUser;
 };
 
-// const findUserByIdAdmin = async (id: string): Promise<UserDocument | null> => {
-//   const foundUser = User.findOne({ _id: id, isAdmin: true });
-//   return foundUser;
-// };
-// get user list
 const getUserList = async (): Promise<UserDocument[]> => {
   return User.find();
 };
-// create or find user by email
+
 const createOrFindUserByEmail = async (
   payload: Partial<UserDocument>
 ): Promise<UserDocument | null> => {
@@ -39,21 +34,20 @@ const createOrFindUserByEmail = async (
     return user.save();
   }
 };
-// update user information
+
 const updateUserDetail = async (
   userId: string,
   update: Partial<UserDocument>
 ): Promise<UserDocument | null> => {
   return User.findByIdAndUpdate(userId, update, { new: true });
 };
-//update userInformation by email
+
 const updateUserByEmail = async (
   emailFromRequest: string,
   update: Partial<UserDocument>
 ): Promise<UserDocument | null> => {
-  const userEmail = {email: emailFromRequest};
+  const userEmail = { email: emailFromRequest };
   return User.findOneAndUpdate(userEmail, update, { new: true });
-
 };
 
 export default {

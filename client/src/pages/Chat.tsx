@@ -1,14 +1,9 @@
-import ChatsPage from "../../src/components/chat/ChatsPage";
-
-import { RootState, AppDispatch } from "./../redux/store";
-import { getUserInformation } from "../redux/thunk/userInformation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-type User = {
-  username: string;
-  secret: string;
-};
+import { RootState, AppDispatch } from "./../redux/store";
+import { getUserInformation } from "../redux/thunk/userInformation";
+import ChatsPage from "../../src/components/chat/ChatsPage";
 
 export default function Chat() {
   const userId = localStorage.getItem("id") || "{}";

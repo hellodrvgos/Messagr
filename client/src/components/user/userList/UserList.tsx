@@ -1,46 +1,26 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
+import { TableSortLabel } from "@mui/material";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
-import { useDispatch, useSelector } from "react-redux";
-
+import "../../../App.css";
+import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/store";
 import fetchUsersData from "../../../redux/thunk/userThunk";
-
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
-
-import BlockIcon from "@mui/icons-material/Block";
-
+import { useSelector } from "react-redux";
 import { getUserInformation } from "../../../redux/thunk/userInformation";
+import { userActions } from "../../../redux/slice/userSlice";
 import UserItem from "../userItem/UserItem";
 
-import { userActions } from "../../../redux/slice/userSlice";
-import { TableSortLabel } from "@mui/material";
-
-import { User } from "../../../types/types";
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-export default function UserListTable() {
-  const userId = localStorage.getItem("id") || "{}";
+export default function UserList() {
   const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("asc");
+  const userId = localStorage.getItem("id") || "{}";
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchUsersData());
@@ -51,64 +31,56 @@ export default function UserListTable() {
     dispatch(getUserInformation());
   }, [dispatch, userId]);
 
-  const userInfo = useSelector(
-    (state: RootState) => state.userinformation.userInfo
-  );
-
   const sortAscendingHandler = () => {
     dispatch(userActions.sortAscending());
     setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
-    // setOrderDirection("asc");
   };
 
   const sortDescendingHandler = () => {
     dispatch(userActions.sortDescending());
     setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
-    // setOrderDirection("desc");
   };
 
+  const userInfo = useSelector(
+    (state: RootState) => state.userinformation.userInfo
+  );
   const filteredUserList = userList.filter((user) => user._id !== userInfo._id);
-
-  //console.log(filteredUserList, "filteredUserList")
-
-  // const userInfoDetails = useSelector((state: RootState) => state.userinformation.userInfo);
-
-  if (userInfo.isAdmin === true) {
-    return (
-      <TableContainer
-        component={Paper}
-        sx={{ width: "80%", mx: "auto", mt: 10 }}
-      >
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell
-                onClick={
-                  orderDirection === "asc"
-                    ? sortAscendingHandler
-                    : sortDescendingHandler
-                }
-              >
-                Name
-                <TableSortLabel
-                  active={true}
-                  direction={orderDirection}
-                  sx={{ background: "#fff", ml: 1, color: "#000" }}
-                ></TableSortLabel>
-              </StyledTableCell>
-              <StyledTableCell align="right">Role</StyledTableCell>
-              <StyledTableCell align="right">E-mail</StyledTableCell>
-              <StyledTableCell align="right">Admin</StyledTableCell>
-              <StyledTableCell align="right">Banned</StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
-            </TableRow>
-          </TableHead>
-          {filteredUserList.map((user, index) => {
-            return <UserItem key={index} user={user} />;
-          })}
-        </Table>
-      </TableContainer>
-    );
-  }
-  return <div>Not authorized...</div>;
+  return (
+    <div className="userlist-page">
+      <Box sx={{ width: "600px", pt: 20, ml: 15 }}>
+        <TableContainer component={Paper}>
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell
+                  onClick={
+                    orderDirection === "asc"
+                      ? sortAscendingHandler
+                      : sortDescendingHandler
+                  }
+                  sx={{ fontWeight: "bold" }}
+                >
+                  Name
+                  <TableSortLabel
+                    active={true}
+                    direction={orderDirection}
+                    sx={{ ml: 1 }}
+                  ></TableSortLabel>
+                </TableCell>
+                <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                  Role
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredUserList.map((user, index) => (
+                <UserItem key={index} user={user} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </div>
+  );
 }

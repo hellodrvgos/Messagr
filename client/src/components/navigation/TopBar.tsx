@@ -7,9 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-
-import Link from "@mui/material/Link";
 import { useNavigate } from "react-router-dom";
+import Link from "@mui/material/Link";
+
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { userInfoActions } from "../../redux/slice/userInformation";
@@ -20,8 +20,8 @@ export default function MenuAppBar() {
   const userInfo = useSelector(
     (state: RootState) => state.userinformation.userInfo
   );
-  const loginInfo: boolean = JSON.parse(localStorage.getItem("loginInfo")!)
-  const dispatch = useDispatch<AppDispatch>()
+  const loginInfo: boolean = JSON.parse(localStorage.getItem("loginInfo")!);
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -33,7 +33,7 @@ export default function MenuAppBar() {
   const logOutHandler = () => {
     localStorage.removeItem("id");
     localStorage.removeItem("token");
-    dispatch(userInfoActions.getLogInInfo(false))
+    dispatch(userInfoActions.getLogInInfo(false));
     navigate("/");
   };
   return (
@@ -51,8 +51,7 @@ export default function MenuAppBar() {
               >
                 <MenuIcon />
               </IconButton>
-              {
-                loginInfo? 
+              {loginInfo ? (
                 <Menu
                   id="menu-appbar"
                   anchorEl={anchorEl}
@@ -70,96 +69,94 @@ export default function MenuAppBar() {
                 >
                   <MenuItem>
                     <Link
-                    href="/profile"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
+                      href="/profile"
+                      variant="body1"
+                      sx={{ textDecoration: "none" }}
                     >
-                    <Typography>Profile</Typography>
+                      <Typography>Profile</Typography>
                     </Link>
                   </MenuItem>
                   <MenuItem>
                     <Link
-                    href="/update"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
+                      href="/update"
+                      variant="body1"
+                      sx={{ textDecoration: "none" }}
                     >
                       <Typography>Update</Typography>
                     </Link>
                   </MenuItem>
                   <MenuItem>
                     <Link
-                    href="/chat"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
+                      href="/chat"
+                      variant="body1"
+                      sx={{ textDecoration: "none" }}
                     >
-                    <Typography>Chat</Typography>
+                      <Typography>Chat</Typography>
                     </Link>
                   </MenuItem>
-                  {
-                  userInfo.isAdmin? 
-                  <MenuItem>
-                    <Link
-                    href="/user-list"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
-                    >
-                    <Typography>UserList</Typography>
-                    </Link>
-                  </MenuItem>
-                  : null
-                  }
-                  <MenuItem>
-                    <Link
-                    href="/"
-                    variant="body1"
-                    sx={{ textDecoration: "none" }}
+                  {userInfo.isAdmin ? (
+                    <MenuItem>
+                      <Link
+                        href="/user-list"
+                        variant="body1"
+                        sx={{ textDecoration: "none" }}
                       >
+                        <Typography>UserList</Typography>
+                      </Link>
+                    </MenuItem>
+                  ) : null}
+                  <MenuItem>
+                    <Link
+                      href="/"
+                      variant="body1"
+                      sx={{ textDecoration: "none" }}
+                    >
                       <Typography
                         onClick={() => {
                           logOutHandler();
-                          }}
-                        >
+                        }}
+                      >
                         Logout
                       </Typography>
                     </Link>
-                </MenuItem> 
-              </Menu>  
-                  : 
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem>
-                      <Link
-                          href="/login"
-                          variant="body1"
-                          sx={{ textDecoration: "none" }}
-                        >
-                        <Typography>Login</Typography>
-                      </Link>
-                  </MenuItem>
-                  <MenuItem>
-                      <Link
-                          href="/register"
-                          variant="body1"
-                          sx={{ textDecoration: "none" }}
-                        >
-                        <Typography>Register</Typography>
-                      </Link>
                   </MenuItem>
                 </Menu>
-                } 
+              ) : (
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>
+                    <Link
+                      href="/login"
+                      variant="body1"
+                      sx={{ textDecoration: "none" }}
+                    >
+                      <Typography>Login</Typography>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      href="/register"
+                      variant="body1"
+                      sx={{ textDecoration: "none" }}
+                    >
+                      <Typography>Register</Typography>
+                    </Link>
+                  </MenuItem>
+                </Menu>
+              )}
             </div>
           )}
         </Toolbar>
@@ -167,5 +164,3 @@ export default function MenuAppBar() {
     </Box>
   );
 }
-                  
-
