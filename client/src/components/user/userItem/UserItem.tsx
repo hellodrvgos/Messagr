@@ -23,6 +23,8 @@ import fetchUsersData from "../../../redux/thunk/userThunk";
 import { AppDispatch } from "../../../redux/store";
 import { getUserInformation } from "../../../redux/thunk/userInformation";
 
+import Avatar from '@mui/material/Avatar';
+
 type Prop = {
   user: User;
 };
@@ -95,57 +97,55 @@ export default function UserItem({ user }: Prop) {
           </IconButton>
         </TableCell>
 
-        <TableCell component="th" scope="row">
-          {user.firstName}
-          <IconButton onClick={adminHandler}>
-            <SupervisorAccountIcon
-              sx={{
-                fontSize: "20px",
-                color: bannedValue ? "black" : adminValue ? "green" : "black",
-              }}
-            />
-          </IconButton>
-          <IconButton onClick={adminandBannedHandler}>
-            <BlockIcon
-              sx={{ fontSize: "18px", color: bannedValue ? "red" : "green" }}
-            />
-          </IconButton>
+        <TableCell component="th" scope="row" sx={{fontSize: "24px", display: "flex", flexDirection: "row", alignItems: "center", columnGap: 2}}>
+          <Avatar alt={user.firstName} src={user.avatar} sx={{width: 40, height: 40}}/>
+          <Typography sx={{fontSize: "28px"}}>{user.firstName}</Typography>
+          <Box sx={{flexGrow: 4, textAlign: "right"}}>
+            <IconButton onClick={adminHandler}>
+              <SupervisorAccountIcon
+                sx={{
+                  fontSize: "32px", color: bannedValue ? "gray" : adminValue ? "#4EEC20" : "gray",
+                }}
+              />
+            </IconButton>
+            <IconButton onClick={adminandBannedHandler}>
+              <BlockIcon
+                sx={{ fontSize: "28px", fontWeight: 800, color: bannedValue ? "red" : "#4EEC20" }}
+              />
+            </IconButton>
+          </Box>
         </TableCell>
-        <TableCell align="right">{user.role}</TableCell>
       </TableRow>
+
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0, backgroundColor: "aliceblue" }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                component="div"
-                sx={{ fontSize: "16px", fontWeight: "bold" }}
-              >
-                User Info
-              </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size="medium" aria-label="userinfo">
                 <TableHead>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-                    <TableCell sx={{ fontWeight: "bold" }}>Github</TableCell>
-                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                  <TableRow >
+                    <TableCell sx={{ fontSize: "18px" }}>Email</TableCell>
+                    <TableCell sx={{ fontSize: "18px" }}>Github</TableCell>
+                    <TableCell sx={{ fontSize: "18px" }}>
                       Location
                     </TableCell>
-                    <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                      Phone number
+                    <TableCell sx={{ fontSize: "18px" }}>
+                      Phone
+                    </TableCell>
+                    <TableCell sx={{ fontSize: "18px" }}>
+                      Role
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow key={user.firstName}>
-                    <TableCell component="th" scope="row">
+                  <TableRow key={user.firstName} >
+                    <TableCell component="th" scope="row" sx={{ fontSize: "18px", borderBottom: 0 }}>
                       {user.email}
                     </TableCell>
-                    <TableCell>{user.gitHub}</TableCell>
-                    <TableCell align="right">{user.location}</TableCell>
-                    <TableCell align="right">{user.phone}</TableCell>
+                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>{user.gitHub}</TableCell>
+                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>{user.location}</TableCell>
+                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>{user.phone}</TableCell>
+                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>{user.role}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>

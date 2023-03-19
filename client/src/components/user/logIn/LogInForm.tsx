@@ -16,6 +16,11 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
 import { userInfoActions } from "../../../redux/slice/userInformation";
 
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+
 export default function LoginForm() {
   const FormSchema = Yup.object().shape({
     email: Yup.string()
@@ -69,6 +74,14 @@ export default function LoginForm() {
     password: string;
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <div>
       <Box
@@ -92,7 +105,7 @@ export default function LoginForm() {
               return (
                 <Form>
                   <Typography variant="h4" sx={{ my: 2 }}>
-                    Welcome back
+                    Welcome back 😃
                   </Typography>
                   <TextField
                     variant="standard"
@@ -116,11 +129,26 @@ export default function LoginForm() {
                     fullWidth
                     name="password"
                     label="Password"
-                    type="password"
+                    // type="password"
                     id="password"
                     autoComplete="current-password"
                     onChange={handleChange}
                     size="small"
+
+                    type={showPassword ? 'text' : 'password'}
+                    InputProps={{
+                      endAdornment: 
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                    }}
                   />
                   {errors.password && touched.password ? (
                     <div className="error-message"> {errors.password}</div>

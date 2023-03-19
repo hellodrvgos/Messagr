@@ -1,19 +1,22 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Button, TextField, Typography, Box } from "@mui/material";
+import { Button, TextField, Typography, Box, InputAdornment } from "@mui/material";
 import Alert, { AlertColor } from "@mui/material/Alert";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import GoogleLogIn from "../googleLogIn/GoogleLogIn";
 import ChooseAvatar from "../avatar/ChooseAvatar";
+import randomAvatar from "../../../assets/images/avatars/random_avatar.png"
 
-import avatarboy1 from "../../../assets/images/avatars/boy/avatar_boy1.png"
-import avatarboy2 from "../../../assets/images/avatars/boy/avatar_boy2.png"
-import avatarboy3 from "../../../assets/images/avatars/boy/avatar_boy3.png"
-import avatarboy4 from "../../../assets/images/avatars/boy/avatar_boy4.png"
+
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+
 
 export default function RegisterForm() {
   const FormSchema = Yup.object().shape({
@@ -34,12 +37,16 @@ export default function RegisterForm() {
     lastName: string;
     email: string;
     password: string;
+    avatar: {
+      randomAvatar: string;
+    }
   };
   const initialValues: InitialValues = {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    avatar: {randomAvatar}
   };
 
   const registerUrl = "http://localhost:8002/users/register";
@@ -47,7 +54,8 @@ export default function RegisterForm() {
   const [isShown, setIsShown] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState<AlertColor>("info");
-  const [avatar, setAvatar] = useState<File | undefined>(undefined);
+  
+  const [avatar, setAvatar] = useState(randomAvatar);
 
   const showAlert = (message: string) => { 
     setIsShown(true);
@@ -61,6 +69,7 @@ export default function RegisterForm() {
         password: values.password,
         firstName: values.firstName,
         lastName: values.lastName,
+        avatar: avatar
       })
       .then((response) => response.data)
       .then((data) => {
@@ -79,6 +88,14 @@ export default function RegisterForm() {
         }, 1000);
       });
   }
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
 
   return (
     <div>
@@ -103,7 +120,7 @@ export default function RegisterForm() {
               return (
                 <Form>
                   <Typography variant="h4" sx={{ my: 2 }}>
-                    Create new account
+                    New account 🤠
                   </Typography>
                   <Box
                     sx={{
@@ -158,19 +175,34 @@ export default function RegisterForm() {
                       margin="normal"
                       required
                       label="Password"
-                      type="password"
+                      // type="password"
                       name="password"
                       autoComplete="new-password"
                       onChange={handleChange}
                       sx={{ width: "48%", mb: 2, mt: 2, fontSize: "10px" }}
                       size="small"
+
+                      type={showPassword ? 'text' : 'password'}
+                      InputProps={{
+                        endAdornment: 
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                      }}
                     ></TextField>
                     {errors.email && touched.email ? (
                       <div className="error-message"> {errors.email}</div>
                     ) : null}
                   </Box>
                   <Stack spacing={3}>
-                    <ChooseAvatar />
+                    <ChooseAvatar setAvatar={setAvatar} />
                     <Button
                       type="submit"
                       fullWidth

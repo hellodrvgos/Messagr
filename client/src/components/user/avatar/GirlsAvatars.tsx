@@ -10,7 +10,11 @@ import avatargirl2 from "../../../assets/images/avatars/girl/avatar_girl2.png";
 import avatargirl3 from "../../../assets/images/avatars/girl/avatar_girl3.png";
 import avatargirl4 from "../../../assets/images/avatars/girl/avatar_girl4.png";
 
-export default function GirlsAvatars() {
+type Avatar = {
+  setAvatar: Function;
+}
+
+export default function GirlsAvatars({setAvatar}: Avatar) {
   const [selectedValue, setSelectedValue] = React.useState("a");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +48,7 @@ export default function GirlsAvatars() {
                   borderStyle: "dashed",
                   borderRadius: "50%",
                 }}
+                onClick={() => setAvatar(avatargirl1)}
               />
             </CardActionArea>
           </Card>
@@ -60,6 +65,7 @@ export default function GirlsAvatars() {
                   borderStyle: "dashed",
                   borderRadius: "50%",
                 }}
+                onClick={() => setAvatar(avatargirl2)}
               />
             </CardActionArea>
           </Card>
@@ -71,6 +77,7 @@ export default function GirlsAvatars() {
                 image={avatargirl3}
                 alt="green iguana"
                 sx={{ border: 1, borderStyle: "dashed", borderRadius: "50%" }}
+                onClick={() => setAvatar(avatargirl3)}
               />
             </CardActionArea>
           </Card>
@@ -87,6 +94,7 @@ export default function GirlsAvatars() {
                   borderStyle: "dashed",
                   borderRadius: "50%",
                 }}
+                onClick={() => setAvatar(avatargirl4)}
               />
             </CardActionArea>
           </Card>

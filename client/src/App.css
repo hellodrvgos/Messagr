@@ -30,12 +30,13 @@
 }
 .update-page {
   height: 100vh;
-  background-image: url("../src/assets/images/avatars/boy/avatar_boy2.png");
-  background-repeat: no-repeat;
+  position: relative;
+  /* background-image: url("../src/assets/images/avatars/boy/avatar_boy3.png"); */
+  /* background-repeat: no-repeat;
   background-position: right bottom;
-  background-size: 44%;
+  background-size: 44%; */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 .update-form-wrapper {
   box-sizing: border-box;

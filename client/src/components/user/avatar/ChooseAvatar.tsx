@@ -49,7 +49,12 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
     </DialogTitle>
   );
 }
-export default function ChooseAvatar() {
+
+type Avatar = {
+  setAvatar: Function;
+}
+
+export default function ChooseAvatar({setAvatar}: Avatar) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -85,7 +90,7 @@ export default function ChooseAvatar() {
           sx={sx}
         >
           <DialogContent dividers>
-            <AvatarTabs />
+            <AvatarTabs setAvatar={setAvatar}/>
           </DialogContent>
         </BootstrapDialog>
       </Box>

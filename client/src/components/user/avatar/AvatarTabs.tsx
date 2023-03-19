@@ -38,12 +38,18 @@ function a11yProps(index: number) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-export default function AvatarTabs() {
+
+type Avatar = {
+  setAvatar: Function;
+}
+
+export default function AvatarTabs({setAvatar}: Avatar) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  
   return (
     <div>
       <Box
@@ -65,10 +71,10 @@ export default function AvatarTabs() {
           <Tab label="Boy" {...a11yProps(1)} />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <GirlsAvatars />
+          <GirlsAvatars setAvatar={setAvatar}/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <BoysAvatars />
+          <BoysAvatars setAvatar={setAvatar}/>
         </TabPanel>
       </Box>
     </div>

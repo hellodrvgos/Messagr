@@ -3,14 +3,26 @@ import { Button, TextField, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import "./UpdateProfileForm.css";
 import { RootState, AppDispatch } from "../../../../redux/store";
 import { getUserInformation } from "../../../../redux/thunk/userInformation";
 import ChooseAvatar from "../../avatar/ChooseAvatar";
 
-export default function UpdateProfileForm() {
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+
+
+type Avatar = {
+  avatar: string
+  setAvatar: Function;
+}
+
+export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
+
   const userId = localStorage.getItem("id") || "{}";
   const dispatch = useDispatch<AppDispatch>();
 
@@ -43,6 +55,7 @@ export default function UpdateProfileForm() {
     gitHub: `${userInfoDetails.gitHub}`,
     avatar: `${userInfoDetails.avatar}`,
   };
+
   const token = localStorage.getItem("token");
   console.log(token, "token from update");
   const updateUserUrl = `http://localhost:8002/users/${userId}`;
@@ -68,12 +81,20 @@ export default function UpdateProfileForm() {
         role: values.role === "" ? `${userInfoDetails.role}` : values.role,
         gitHub:
           values.gitHub === "" ? `${userInfoDetails.gitHub}` : values.gitHub,
-        avatar:
-          values.avatar === "" ? `${userInfoDetails.avatar}` : values.avatar,
+        avatar: avatar
       },
       { headers: { Authorization: `Bearer ${token}` } }
     );
   }
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
   if (userInfoDetails._id === "") {
     return <p>Loding</p>;
   }
@@ -84,8 +105,7 @@ export default function UpdateProfileForm() {
           my: 1,
           mx: 2,
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          flexDirection: "row",
         }}
       >
         <Box
@@ -157,6 +177,21 @@ export default function UpdateProfileForm() {
                       onChange={handleChange}
                       sx={{ width: "48%", my: 2, fontSize: "10px" }}
                       size="small"
+
+                      type={showPassword ? 'text' : 'password'}
+                      InputProps={{
+                        endAdornment: 
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                      }}
                     ></TextField>
                     {errors.email && touched.email ? (
                       <div className="error-message"> {errors.email}</div>
@@ -216,7 +251,7 @@ export default function UpdateProfileForm() {
                     ) : null}
 
                     <Box sx={{ width: "48%", my: 2 }}>
-                      <ChooseAvatar />
+                      <ChooseAvatar setAvatar={setAvatar}/>
                     </Box>
                   </Box>
                   <Button
@@ -232,6 +267,7 @@ export default function UpdateProfileForm() {
             }}
           </Formik>
         </Box>
+
       </Box>
     </div>
   );

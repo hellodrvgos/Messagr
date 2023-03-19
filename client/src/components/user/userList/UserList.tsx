@@ -47,11 +47,11 @@ export default function UserList() {
   const filteredUserList = userList.filter((user) => user._id !== userInfo._id);
   return (
     <div className="userlist-page">
-      <Box sx={{ width: "600px", pt: 20, ml: 15 }}>
-        <TableContainer component={Paper}>
-          <Table aria-label="collapsible table">
+      <Box sx={{ width: "700px", pt: 11, ml: 12 }}>
+        <TableContainer component={Paper} sx={{ maxHeight: 540, borderRadius: "20px", boxShadow: "0px 0px 30px #5521b595" }}>
+          <Table stickyHeader aria-label="collapsible table">
             <TableHead>
-              <TableRow>
+              <TableRow >
                 <TableCell />
                 <TableCell
                   onClick={
@@ -59,17 +59,14 @@ export default function UserList() {
                       ? sortAscendingHandler
                       : sortDescendingHandler
                   }
-                  sx={{ fontWeight: "bold" }}
+                  sx={{ fontWeight: 500, fontSize: "32px", py: 3 }}
                 >
-                  Name
+                  Users
                   <TableSortLabel
                     active={true}
                     direction={orderDirection}
                     sx={{ ml: 1 }}
                   ></TableSortLabel>
-                </TableCell>
-                <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                  Role
                 </TableCell>
               </TableRow>
             </TableHead>
