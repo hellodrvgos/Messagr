@@ -22,6 +22,7 @@ export default function UserList() {
   const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("asc");
   const userId = localStorage.getItem("id") || "{}";
   const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
     dispatch(fetchUsersData());
   }, [dispatch, userId]);
@@ -48,10 +49,17 @@ export default function UserList() {
   return (
     <div className="userlist-page">
       <Box sx={{ width: "700px", pt: 11, ml: 12 }}>
-        <TableContainer component={Paper} sx={{ maxHeight: 540, borderRadius: "20px", boxShadow: "0px 0px 30px #5521b595" }}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            maxHeight: 540,
+            borderRadius: "20px",
+            boxShadow: "0px 0px 30px #5521b595",
+          }}
+        >
           <Table stickyHeader aria-label="collapsible table">
             <TableHead>
-              <TableRow >
+              <TableRow>
                 <TableCell />
                 <TableCell
                   onClick={

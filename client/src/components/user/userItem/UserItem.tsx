@@ -15,6 +15,7 @@ import {
   TableBody,
   TableCell,
   TableRow,
+  Avatar,
 } from "@mui/material";
 
 import { User } from "../../../types/types";
@@ -22,8 +23,6 @@ import { useDispatch } from "react-redux";
 import fetchUsersData from "../../../redux/thunk/userThunk";
 import { AppDispatch } from "../../../redux/store";
 import { getUserInformation } from "../../../redux/thunk/userInformation";
-
-import Avatar from '@mui/material/Avatar';
 
 type Prop = {
   user: User;
@@ -97,20 +96,39 @@ export default function UserItem({ user }: Prop) {
           </IconButton>
         </TableCell>
 
-        <TableCell component="th" scope="row" sx={{fontSize: "24px", display: "flex", flexDirection: "row", alignItems: "center", columnGap: 2}}>
-          <Avatar alt={user.firstName} src={user.avatar} sx={{width: 40, height: 40}}/>
-          <Typography sx={{fontSize: "28px"}}>{user.firstName}</Typography>
-          <Box sx={{flexGrow: 4, textAlign: "right"}}>
+        <TableCell
+          component="th"
+          scope="row"
+          sx={{
+            fontSize: "24px",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            columnGap: 2,
+          }}
+        >
+          <Avatar
+            alt={user.firstName}
+            src={user.avatar}
+            sx={{ width: 40, height: 40 }}
+          />
+          <Typography sx={{ fontSize: "28px" }}>{user.firstName}</Typography>
+          <Box sx={{ flexGrow: 4, textAlign: "right" }}>
             <IconButton onClick={adminHandler}>
               <SupervisorAccountIcon
                 sx={{
-                  fontSize: "32px", color: bannedValue ? "gray" : adminValue ? "#4EEC20" : "gray",
+                  fontSize: "32px",
+                  color: bannedValue ? "gray" : adminValue ? "#4EEC20" : "gray",
                 }}
               />
             </IconButton>
             <IconButton onClick={adminandBannedHandler}>
               <BlockIcon
-                sx={{ fontSize: "28px", fontWeight: 800, color: bannedValue ? "red" : "#4EEC20" }}
+                sx={{
+                  fontSize: "28px",
+                  fontWeight: 800,
+                  color: bannedValue ? "red" : "#4EEC20",
+                }}
               />
             </IconButton>
           </Box>
@@ -118,34 +136,47 @@ export default function UserItem({ user }: Prop) {
       </TableRow>
 
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0, backgroundColor: "aliceblue" }} colSpan={6}>
+        <TableCell
+          style={{
+            paddingBottom: 0,
+            paddingTop: 0,
+            backgroundColor: "aliceblue",
+          }}
+          colSpan={6}
+        >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Table size="medium" aria-label="userinfo">
                 <TableHead>
-                  <TableRow >
+                  <TableRow>
                     <TableCell sx={{ fontSize: "18px" }}>Email</TableCell>
                     <TableCell sx={{ fontSize: "18px" }}>Github</TableCell>
-                    <TableCell sx={{ fontSize: "18px" }}>
-                      Location
-                    </TableCell>
-                    <TableCell sx={{ fontSize: "18px" }}>
-                      Phone
-                    </TableCell>
-                    <TableCell sx={{ fontSize: "18px" }}>
-                      Role
-                    </TableCell>
+                    <TableCell sx={{ fontSize: "18px" }}>Location</TableCell>
+                    <TableCell sx={{ fontSize: "18px" }}>Phone</TableCell>
+                    <TableCell sx={{ fontSize: "18px" }}>Role</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow key={user.firstName} >
-                    <TableCell component="th" scope="row" sx={{ fontSize: "18px", borderBottom: 0 }}>
+                  <TableRow key={user.firstName}>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      sx={{ fontSize: "18px", borderBottom: 0 }}
+                    >
                       {user.email}
                     </TableCell>
-                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>{user.gitHub}</TableCell>
-                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>{user.location}</TableCell>
-                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>{user.phone}</TableCell>
-                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>{user.role}</TableCell>
+                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>
+                      {user.gitHub}
+                    </TableCell>
+                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>
+                      {user.location}
+                    </TableCell>
+                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>
+                      {user.phone}
+                    </TableCell>
+                    <TableCell sx={{ fontSize: "18px", borderBottom: 0 }}>
+                      {user.role}
+                    </TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
