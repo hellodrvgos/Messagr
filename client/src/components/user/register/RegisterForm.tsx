@@ -22,7 +22,13 @@ import Stack from "@mui/material/Stack";
 import GoogleLogIn from "../googleLogIn/GoogleLogIn";
 import ChooseAvatar from "../avatar/ChooseAvatar";
 
+import avatarboy1 from "../../../assets/images/avatars/boy/avatar_boy1.png"
+import avatarboy2 from "../../../assets/images/avatars/boy/avatar_boy2.png"
+import avatarboy3 from "../../../assets/images/avatars/boy/avatar_boy3.png"
+import avatarboy4 from "../../../assets/images/avatars/boy/avatar_boy4.png"
+
 export default function RegisterForm() {
+  console.log(typeof(avatarboy1))
   // schema
   const FormSchema = Yup.object().shape({
     email: Yup.string()
@@ -48,7 +54,9 @@ export default function RegisterForm() {
     // phone: string;
     // role: string;
     // gitHub: string;
-    // avatar: string;
+    avatar: {
+      avatarboy1: string;
+    }
   };
   // initial values
   const initialValues: InitialValues = {
@@ -60,7 +68,7 @@ export default function RegisterForm() {
     // phone: "",
     // role: "",
     // gitHub: "",
-    // avatar: "",
+    avatar: {avatarboy1},
   };
 
   const registerUrl = "http://localhost:8002/users/register";
@@ -72,7 +80,7 @@ export default function RegisterForm() {
   const [alertSeverity, setAlertSeverity] = useState<AlertColor>("info");
   const [avatar, setAvatar] = useState<File | undefined>(undefined);
 
-  const showAlert = (message: string) => {
+  const showAlert = (message: string) => { 
     setIsShown(true);
     setAlertMessage(message);
   };
