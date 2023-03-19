@@ -15,42 +15,36 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 import "../../../App.css"
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-//   carbs: number,
-//   protein: number,
-//   price: number,
-) {
-  return {
-    name,
-    calories,
-    fat,
-    // carbs,
-    // protein,
-    // price,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
-  };
-}
 
-function Row(props: { row: ReturnType<typeof createData> }) {
-  const { row } = props;
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { AppDispatch, RootState } from "../../../redux/store";
+import fetchUsersData from "../../../redux/thunk/userThunk";
+
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
+
+import BlockIcon from "@mui/icons-material/Block";
+
+import { getUserInformation } from "../../../redux/thunk/userInformation";
+import UserItem from "../userItem/UserItem";
+
+import { userActions } from "../../../redux/slice/userSlice";
+import { TableSortLabel } from "@mui/material";
+
+import { User } from "../../../types/types";
+
+function UserInfo(props: { user: User }) {
+
+  const { user } = props;
   const [open, setOpen] = React.useState(false);
 
   return (
     <React.Fragment>
+
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton
@@ -61,90 +55,96 @@ function Row(props: { row: ReturnType<typeof createData> }) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.name}
+        <TableCell component="th" scope="row"> 
+          {user.firstName}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        {/* <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell> */}
+        <TableCell align="right">{user.role}</TableCell>
+
       </TableRow>
+
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                History
+                User Info
               </Typography>
+
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>GitHub</TableCell>
+                    <TableCell align="right">Location</TableCell>
+                    <TableCell align="right">Phone Number</TableCell>
                   </TableRow>
                 </TableHead>
+
                 <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
+                    <TableRow >
                       <TableCell component="th" scope="row">
-                        {historyRow.date}
+                        {user.email}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
+                      <TableCell>{user.gitHub}</TableCell>
+                      <TableCell align="right">{user.location}</TableCell>
                       <TableCell align="right">
-                        {/* {Math.round(historyRow.amount * row.price * 100) / 100} */}
+                        {user.phone}
                       </TableCell>
                     </TableRow>
-                  ))}
                 </TableBody>
+                
               </Table>
+
             </Box>
           </Collapse>
+
         </TableCell>
       </TableRow>
+
     </React.Fragment>
   );
 }
 
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-//   createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-//   createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-// ];
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0,),
-    createData('Ice cream sandwich', 237, 9.0),
-    createData('Eclair', 262, 16.0),
-    createData('Cupcake', 305, 3.7),
-    createData('Gingerbread', 356, 16.0),
-  ];
-
 export default function CollapsibleTable() {
+
+    const userId = localStorage.getItem("id") || "{}";
+
+    const dispatch = useDispatch<AppDispatch>();
+    useEffect(() => {
+        dispatch(fetchUsersData());
+    }, [dispatch, userId]);
+    const userList = useSelector((state: RootState) => state.users.userList);
+
+    useEffect(() => {
+        dispatch(getUserInformation());
+    }, [dispatch, userId]);
+    const userInfo = useSelector(
+        (state: RootState) => state.userinformation.userInfo
+    );
+
+    const filteredUserList = userList.filter((user)=> user._id !== userInfo._id);
+
   return (
     <div className='userlist-page'>
     <Box sx={{width: "600px", pt: 20, ml: 15}}>
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
+
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            {/* <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Role</TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
+          {filteredUserList.map((user) => (
+            <UserInfo key={user._id} user={user} />
           ))}
         </TableBody>
+
       </Table>
     </TableContainer>
 
