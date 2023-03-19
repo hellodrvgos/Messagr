@@ -1,9 +1,8 @@
 import * as React from "react";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import BlockIcon from "@mui/icons-material/Block";
 import {
@@ -13,9 +12,10 @@ import {
   Table,
   TableHead,
   Typography,
+  TableBody,
+  TableCell,
+  TableRow,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import { User } from "../../../types/types";
 import { useDispatch } from "react-redux";
@@ -42,9 +42,7 @@ export default function UserItem({ user }: Prop) {
   const [adminValue, setAdminValue] = useState(user.isAdmin);
   const [bannedValue, setBannnedValue] = useState(user.isBanned);
 
-  //const userEmail = user.email;
   const token = localStorage.getItem("token");
-
   const id = user._id;
 
   function adminHandler() {

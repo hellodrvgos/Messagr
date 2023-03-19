@@ -1,5 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
+import axios from "axios";
+
 import {
   createUserController,
   loginWithPasswordController,
@@ -9,10 +11,7 @@ import {
   googleAuthenticate,
   updateUserDetailController,
   displayUserInformationController,
-  updateUserByEmailController
 } from "../controllers/users";
-
-import axios from "axios";
 
 const router = Router();
 
@@ -32,19 +31,6 @@ router.put(
   updateUserDetailController
 );
 
-// router.put(
-//   "/update/:userId",
-//   passport.authenticate("jwt", { session: false }),
-//   updateUserDetailController
-// );
-
-// router.put(
-//   "/update/:email",
-//   passport.authenticate("jwt", { session: false }),
-//   updateUserByEmailController
-// );
-
-
 router.get(
   "/userlist/:id",
   passport.authenticate("jwt", { session: false }),
@@ -63,7 +49,11 @@ router.put(
   banUserController
 );
 
-router.get("/:id", passport.authenticate("jwt", {session: false}), displayUserInformationController);
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  displayUserInformationController
+);
 
 //chatengine
 router.post("/loginChat", async (req, res) => {
@@ -77,11 +67,8 @@ router.post("/loginChat", async (req, res) => {
     );
     return res.status(r.status).json(r.data);
   } catch (error) {
-    // return res.status(error.response.status).json(error.response.data);
     console.log(error);
   }
 });
 
 export default router;
-
-

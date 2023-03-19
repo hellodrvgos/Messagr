@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 import User, { UserDocument } from "../models/User";
@@ -145,7 +144,6 @@ export const updateUserDetailController = async (
     let password = req.body.password;
 
     if (password) {
-      // hash password
       const saltRounds = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       password = hashedPassword;
