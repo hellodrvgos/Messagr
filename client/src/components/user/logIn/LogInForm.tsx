@@ -19,11 +19,13 @@ import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
 import { Typography } from "@mui/material";
 import GoogleLogIn from "../googleLogIn/GoogleLogIn";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
 import { userInfoActions } from "../../../redux/slice/userInformation";
+import { userActions } from "../../../redux/slice/userSlice";
 
 export default function LoginForm() {
+  // state
   const FormSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email")
@@ -63,6 +65,7 @@ export default function LoginForm() {
         if (!data.message) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("id", data.id);
+          dispatch(userInfoActions.getLogInInfo(true));
           navigate("/chat");
           return;
         }
@@ -97,9 +100,9 @@ export default function LoginForm() {
             {({ errors, touched, handleChange }) => {
               return (
                 <Form>
-              <Typography variant="h4" sx={{ my: 2 }}>
-                Welcome back
-              </Typography>
+                  <Typography variant="h4" sx={{ my: 2 }}>
+                    Welcome back
+                  </Typography>
                   <TextField
                     variant="standard"
                     margin="normal"
@@ -152,7 +155,9 @@ export default function LoginForm() {
                     >
                       Sign In
                     </Button>
-                    <Typography variant="h6" sx={{color: "gray"}}>OR</Typography>
+                    <Typography variant="h6" sx={{ color: "gray" }}>
+                      OR
+                    </Typography>
                     <GoogleLogIn />
                   </Stack>
                 </Form>

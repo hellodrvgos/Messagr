@@ -1,16 +1,15 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Slide from '@mui/material/Slide';
-import LoginForm from '../components/user/logIn/LogInForm';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Slide from "@mui/material/Slide";
+import LoginForm from "../components/user/logIn/LogInForm";
 
-import "../App.css"
+import "../App.css";
 import RegisterForm from "../components/user/register/RegisterForm";
 
 import Link from "@mui/material/Link";
 import { Typography } from "@mui/material";
 
 export default function HomePage() {
-
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = () => {
