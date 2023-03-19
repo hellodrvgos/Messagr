@@ -152,7 +152,6 @@ export const updateUserDetailController = async (
         userId,
         newDetail
       );
-      // res.status(200).json(updatedDetail);
       res.json({
         status: "success",
         message: `your profile has been successfully updated.`,

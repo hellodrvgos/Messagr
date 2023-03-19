@@ -20,13 +20,18 @@ import UserItem from "../userItem/UserItem";
 
 export default function UserList() {
   const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("asc");
+  const userList = useSelector((state: RootState) => state.users.userList);
+  const userInfo = useSelector(
+    (state: RootState) => state.userinformation.userInfo
+  );
+  const filteredUserList = userList.filter((user) => user._id !== userInfo._id);
+
   const userId = localStorage.getItem("id") || "{}";
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchUsersData());
   }, [dispatch, userId]);
-  const userList = useSelector((state: RootState) => state.users.userList);
 
   useEffect(() => {
     dispatch(getUserInformation());
@@ -42,10 +47,6 @@ export default function UserList() {
     setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
   };
 
-  const userInfo = useSelector(
-    (state: RootState) => state.userinformation.userInfo
-  );
-  const filteredUserList = userList.filter((user) => user._id !== userInfo._id);
   return (
     <div className="userlist-page">
       <Box sx={{ width: "700px", pt: 11, ml: 12 }}>
