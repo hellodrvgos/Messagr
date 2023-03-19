@@ -21,7 +21,7 @@ import { getUserInformation } from "../../../../redux/thunk/userInformation";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-import ChooseAvatar from "../../register/ChooseAvatar";
+import ChooseAvatar from "../../avatar/ChooseAvatar";
 
 
 export default function UpdateProfileForm() {

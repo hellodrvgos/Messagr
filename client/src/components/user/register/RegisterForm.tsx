@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 
 import GoogleLogIn from "../googleLogIn/GoogleLogIn";
-import ChooseAvatar from "./ChooseAvatar";
+import ChooseAvatar from "../avatar/ChooseAvatar";
 
 export default function RegisterForm() {
   // schema
