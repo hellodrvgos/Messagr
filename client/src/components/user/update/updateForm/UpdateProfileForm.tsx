@@ -117,8 +117,8 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
         setAlertSeverity("success");
         showAlert(data.message);
         setTimeout(() => {
-          navigate("/login");
-        }, 1000);
+          setIsShown(false);
+        }, 2000);
       });
   }
 
@@ -295,11 +295,12 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
                       <ChooseAvatar setAvatar={setAvatar} />
                     </Box>
                   </Box>
+                  {isShown && <Alert severity={alertSeverity} sx={{my: 1}}>{alertMessage}</Alert>}
                   <Button
                     type="submit"
                     fullWidth
                     variant="contained"
-                    sx={{ mt: 3, mb: 5 }}
+                    sx={{ mt: 3, mb: 4 }}
                   >
                     Update Information
                   </Button>
@@ -307,7 +308,6 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
               );
             }}
           </Formik>
-          {isShown && <Alert severity={alertSeverity}>{alertMessage}</Alert>}
         </Box>
       </Box>
     </div>

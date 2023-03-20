@@ -9,12 +9,28 @@ import "../App.css";
 import RegisterForm from "../components/user/register/RegisterForm";
 
 export default function HomePage() {
+
+  const token = localStorage.getItem("token");
+  
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
-
+  
+  if (token !== null) {
+    return     <div className="login-page">
+    <Box sx={{ height: "100%" }}>
+    <Box sx={{ width: `calc(600px + 16px)` , mt: "10%"}}>
+    <div className="login-form-wrapper">
+    <Typography variant="h4" sx={{ my: 20 }}>
+    You are logged in 🤗
+    </Typography>
+    </div>
+    </Box>  
+    </Box>
+  </div>
+  }
   return (
     <div className="login-page">
       <Box sx={{ height: "100%" }}>
@@ -55,7 +71,7 @@ export default function HomePage() {
               </Typography>
             </div>
           </Slide>
-        </Box>
+          </Box>        
       </Box>
     </div>
   );
