@@ -156,15 +156,22 @@ export const updateUserDetailController = async (
         userId,
         newDetail
       );
-      res.status(200).json(updatedDetail);
+      res.json({
+        status: "success",
+        message: `your profile has been successfully updated.`,
+      });
     } else {
       const newDetail = req.body;
       const updateDetail = await UserServices.updateUserDetail(
         userId,
         newDetail
       );
-      res.status(200).json(updateDetail);
+      res.json({
+        status: "success",
+        message: `your profile has been successfully updated.`,
+      });
     }
+    res.json({ message: `Profile update was not successful.` });
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,12 @@
 import { Formik, Form } from "formik";
-import { Button, TextField, Typography, Box } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Typography,
+  Box,
+  AlertColor,
+  Alert,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,14 +17,13 @@ import { RootState, AppDispatch } from "../../../../redux/store";
 import { getUserInformation } from "../../../../redux/thunk/userInformation";
 import ChooseAvatar from "../../avatar/ChooseAvatar";
 
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
 
 type Avatar = {
-  avatar: string
+  avatar: string;
   setAvatar: Function;
 }
 
@@ -25,6 +31,14 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
 
   const userId = localStorage.getItem("id") || "{}";
   const dispatch = useDispatch<AppDispatch>();
+  const [isShown, setIsShown] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState<AlertColor>("info");
+
+  const showAlert = (message: string) => {
+    setIsShown(true);
+    setAlertMessage(message);
+  };
 
   useEffect(() => {
     dispatch(getUserInformation());
@@ -59,42 +73,62 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
   };
 
   const token = localStorage.getItem("token");
-  console.log(token, "token from update");
+
   const updateUserUrl = `http://localhost:8002/users/${userId}`;
 
   function updateUsersData(values: InitialValues) {
-    axios.put(
-      updateUserUrl,
-      {
-        firstName:
-          values.firstName === ""
-            ? `${userInfoDetails.firstName}`
-            : values.firstName,
-        lastName:
-          values.lastName === ""
-            ? `${userInfoDetails.lastName}`
-            : values.lastName,
-        email: `${userInfoDetails.email}`,
-        password: values.password,
+    axios
+      .put(
+        updateUserUrl,
+        {
+          firstName:
+            values.firstName === ""
+              ? `${userInfoDetails.firstName}`
+              : values.firstName,
+          lastName:
+            values.lastName === ""
+              ? `${userInfoDetails.lastName}`
+              : values.lastName,
+          email: `${userInfoDetails.email}`,
+          password: values.password,
         location:
-          values.location === ""
-            ? `${userInfoDetails.location}`
-            : values.location,
-        phone: values.phone === "" ? `${userInfoDetails.phone}` : values.phone,
-        role: values.role === "" ? `${userInfoDetails.role}` : values.role,
-        gitHub:
-          values.gitHub === "" ? `${userInfoDetails.gitHub}` : values.gitHub,
-        avatar: avatar
-      },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+            values.location === ""
+              ? `${userInfoDetails.location}`
+              : values.location,
+          phone:
+            values.phone === "" ? `${userInfoDetails.phone}` : values.phone,
+          role: values.role === "" ? `${userInfoDetails.role}` : values.role,
+          gitHub:
+            values.gitHub === "" ? `${userInfoDetails.gitHub}` : values.gitHub,
+          avatar: avatar,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((response) => response.data)
+      .then((data) => {
+        if (data.status !== "success") {
+          setAlertSeverity("warning");
+          showAlert(data.message);
+          setTimeout(() => {
+            setIsShown(false);
+          }, 2000);
+          return;
+        }
+        setAlertSeverity("success");
+        showAlert(data.message);
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      });
   }
 
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
   };
 
@@ -180,10 +214,9 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
                       onChange={handleChange}
                       sx={{ width: "48%", my: 2, fontSize: "10px" }}
                       size="small"
-
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       InputProps={{
-                        endAdornment: 
+                        endAdornment: (
                           <InputAdornment position="end">
                             <IconButton
                               aria-label="toggle password visibility"
@@ -191,9 +224,14 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
                               onMouseDown={handleMouseDownPassword}
                               edge="end"
                             >
-                              {showPassword ? <VisibilityOff /> : <Visibility />}
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
                             </IconButton>
                           </InputAdornment>
+                        ),
                       }}
                     ></TextField>
                     {errors.email && touched.email ? (
@@ -254,7 +292,7 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
                     ) : null}
 
                     <Box sx={{ width: "48%", my: 2 }}>
-                      <ChooseAvatar setAvatar={setAvatar}/>
+                      <ChooseAvatar setAvatar={setAvatar} />
                     </Box>
                   </Box>
                   <Button
@@ -269,8 +307,8 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
               );
             }}
           </Formik>
+          {isShown && <Alert severity={alertSeverity}>{alertMessage}</Alert>}
         </Box>
-
       </Box>
     </div>
   );
