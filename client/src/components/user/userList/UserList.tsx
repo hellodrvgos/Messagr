@@ -49,20 +49,8 @@ export default function UserList() {
 
   return (
     <div className="userlist-page">
-<<<<<<< HEAD
       <Box sx={{ width: "700px", pt: 8, ml: 12 }}>
         <TableContainer component={Paper} sx={{ maxHeight: 540, borderRadius: "20px", boxShadow: "0px 0px 30px #5521b595" }}>
-=======
-      <Box sx={{ width: "700px", pt: 11, ml: 12 }}>
-        <TableContainer
-          component={Paper}
-          sx={{
-            maxHeight: 540,
-            borderRadius: "20px",
-            boxShadow: "0px 0px 30px #5521b595",
-          }}
-        >
->>>>>>> b309c98d3e295987408ad4423061d48e99e5c54b
           <Table stickyHeader aria-label="collapsible table">
             <TableHead>
               <TableRow>
