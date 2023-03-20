@@ -40,7 +40,7 @@ export default function Update() {
         </div>
       </Box>
       <Box>
-        <img style={{width: "44%", position: "absolute", bottom: 0, right: 10}} src={avatar} />
+        <img style={{width: "44%", position: "absolute", bottom: 0, right: 30}} src={avatar} />
       </Box>
     </div>
   );

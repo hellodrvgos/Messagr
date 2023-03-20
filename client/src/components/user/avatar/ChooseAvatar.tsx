@@ -81,7 +81,7 @@ export default function ChooseAvatar({setAvatar}: Avatar) {
           size={"small"}
           startIcon={<AccountCircleIcon />}
         >
-          Choose avatar
+          Avatar
         </Button>
         <BootstrapDialog
           onClose={handleClose}

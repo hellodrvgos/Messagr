@@ -12,6 +12,8 @@ export type UserDocument = Document & {
   location: string;
   gitHub: string;
   phone: string;
+  secretQuestion: string;
+  answer: string
 };
 
 const UserSchema = new mongoose.Schema({
@@ -56,6 +58,14 @@ const UserSchema = new mongoose.Schema({
     default: "",
   },
   phone: {
+    type: String,
+    default: "",
+  },
+  secretQuestion: {
+    type: String,
+    default: "",
+  },
+  answer: {
     type: String,
     default: "",
   },

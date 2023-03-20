@@ -9,10 +9,16 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
+import GroupIcon from '@mui/icons-material/Group';
+import ChatIcon from '@mui/icons-material/Chat';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
+import WidgetsIcon from '@mui/icons-material/Widgets';
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { userInfoActions } from "../../redux/slice/userInformation";
+import "../../App.css"
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true);
@@ -37,8 +43,9 @@ export default function MenuAppBar() {
     navigate("/");
   };
   return (
-    <Box sx={{ flexGrow: 1, zIndex: "999" }}>
-      <AppBar position="static">
+    <Box >
+      <AppBar position="static" sx={{color: "white", bgcolor: "#fff0", boxShadow: "none", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+        <Link href="/" sx={{cursor: "pointer", textDecoration: "none", color: "white"}}><Typography variant="h4" className="logo" sx={{pl: 2, lineHeight: 1, letterSpacing: 4}}>Messagr...</Typography></Link>
         <Toolbar>
           {auth && (
             <div>
@@ -49,7 +56,8 @@ export default function MenuAppBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <MenuIcon />
+                {/* <MenuIcon /> */}
+                <WidgetsIcon fontSize="large" />
               </IconButton>
               {loginInfo ? (
                 <Menu
@@ -73,10 +81,11 @@ export default function MenuAppBar() {
                       variant="body1"
                       sx={{ textDecoration: "none" }}
                     >
-                      <Typography>Profile</Typography>
+                      {/* <Typography>Profile</Typography> */}
+                      <PersonIcon fontSize="large"/>
                     </Link>
                   </MenuItem>
-                  <MenuItem>
+                  {/* <MenuItem>
                     <Link
                       href="/update"
                       variant="body1"
@@ -84,24 +93,26 @@ export default function MenuAppBar() {
                     >
                       <Typography>Update</Typography>
                     </Link>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem>
                     <Link
                       href="/chat"
                       variant="body1"
                       sx={{ textDecoration: "none" }}
                     >
-                      <Typography>Chat</Typography>
+                      {/* <Typography>Chat</Typography> */}
+                      <ChatIcon fontSize="large"/>
                     </Link>
                   </MenuItem>
                   {userInfo.isAdmin ? (
                     <MenuItem>
                       <Link
-                        href="/user-list"
-                        variant="body1"
+                        href="/userlist"
+                        variant="h4"
                         sx={{ textDecoration: "none" }}
                       >
-                        <Typography>UserList</Typography>
+                        {/* <Typography>UserList</Typography> */}
+                        <GroupIcon fontSize="large"/>
                       </Link>
                     </MenuItem>
                   ) : null}
@@ -111,52 +122,57 @@ export default function MenuAppBar() {
                       variant="body1"
                       sx={{ textDecoration: "none" }}
                     >
-                      <Typography
+                      {/* <Typography
                         onClick={() => {
                           logOutHandler();
                         }}
                       >
                         Logout
-                      </Typography>
+                      </Typography> */}
+                      <LogoutIcon fontSize="large" onClick={() => {
+                          logOutHandler();
+                        }}/>
                     </Link>
                   </MenuItem>
                 </Menu>
-              ) : (
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem>
-                    <Link
-                      href="/login"
-                      variant="body1"
-                      sx={{ textDecoration: "none" }}
-                    >
-                      <Typography>Login</Typography>
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <Link
-                      href="/register"
-                      variant="body1"
-                      sx={{ textDecoration: "none" }}
-                    >
-                      <Typography>Register</Typography>
-                    </Link>
-                  </MenuItem>
-                </Menu>
-              )}
+              ) : null
+              // (
+              //   <Menu
+              //     id="menu-appbar"
+              //     anchorEl={anchorEl}
+              //     anchorOrigin={{
+              //       vertical: "top",
+              //       horizontal: "right",
+              //     }}
+              //     keepMounted
+              //     transformOrigin={{
+              //       vertical: "top",
+              //       horizontal: "right",
+              //     }}
+              //     open={Boolean(anchorEl)}
+              //     onClose={handleClose}
+              //   >
+              //     <MenuItem>
+              //       <Link
+              //         href="/login"
+              //         variant="body1"
+              //         sx={{ textDecoration: "none" }}
+              //       >
+              //         <Typography>Login</Typography>
+              //       </Link>
+              //     </MenuItem>
+              //     <MenuItem>
+              //       <Link
+              //         href="/register"
+              //         variant="body1"
+              //         sx={{ textDecoration: "none" }}
+              //       >
+              //         <Typography>Register</Typography>
+              //       </Link>
+              //     </MenuItem>
+              //   </Menu>
+              // )
+              }
             </div>
           )}
         </Toolbar>

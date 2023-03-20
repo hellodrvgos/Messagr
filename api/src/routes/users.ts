@@ -11,6 +11,8 @@ import {
   googleAuthenticate,
   updateUserDetailController,
   displayUserInformationController,
+  resetPasswordController,
+  resetPasswordController1
 } from "../controllers/users";
 
 const router = Router();
@@ -29,6 +31,14 @@ router.put(
   "/:userId",
   passport.authenticate("jwt", { session: false }),
   updateUserDetailController
+);
+
+router.patch(
+  "/resetpassword", resetPasswordController
+);
+
+router.post(
+  "/resetpassword/getquestion", resetPasswordController1
 );
 
 router.get(

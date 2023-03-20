@@ -17,6 +17,11 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 
 export default function RegisterForm() {
   const FormSchema = Yup.object().shape({
@@ -39,14 +44,18 @@ export default function RegisterForm() {
     password: string;
     avatar: {
       randomAvatar: string;
-    }
+    },
+    secretQuestion: string;
+    answer: string;
   };
   const initialValues: InitialValues = {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    avatar: {randomAvatar}
+    avatar: {randomAvatar},
+    secretQuestion: "",
+    answer: "",
   };
 
   const registerUrl = "http://localhost:8002/users/register";
@@ -56,6 +65,12 @@ export default function RegisterForm() {
   const [alertSeverity, setAlertSeverity] = useState<AlertColor>("info");
   
   const [avatar, setAvatar] = useState(randomAvatar);
+
+  const [question, setQuestion] = useState('');
+
+  const handleChangeQuestion = (event: SelectChangeEvent) => {
+    setQuestion(event.target.value);
+  };
 
   const showAlert = (message: string) => { 
     setIsShown(true);
@@ -69,7 +84,9 @@ export default function RegisterForm() {
         password: values.password,
         firstName: values.firstName,
         lastName: values.lastName,
-        avatar: avatar
+        avatar: avatar,
+        secretQuestion: question,
+        answer: values.answer
       })
       .then((response) => response.data)
       .then((data) => {
@@ -200,6 +217,34 @@ export default function RegisterForm() {
                     {errors.email && touched.email ? (
                       <div className="error-message"> {errors.email}</div>
                     ) : null}
+
+
+                <FormControl variant="standard" sx={{ width: "48%", mb: 2, mt: 2, fontSize: "10px" }}
+          >
+                  <InputLabel>Secret Question</InputLabel>
+                  <Select
+                  required
+                    value={question}
+                    label="Secret Question"
+                    onChange={handleChangeQuestion}
+                  >
+                    <MenuItem value="What is the name of your first pet?">What is the name of your first pet?</MenuItem>
+                    <MenuItem value="What was your first car?">What was your first car?</MenuItem>
+                    <MenuItem value="What is your favorite color?">What is your favorite color?</MenuItem>
+                  </Select>
+                </FormControl>
+
+                <TextField
+                  variant="standard"
+                  margin="normal"
+                  required
+                  label="Answer"
+                  name="answer"
+                  sx={{ mt: 2, mb: 2, width: "48%" }}
+                  onChange={handleChange}
+                  size="small"
+                />
+
                   </Box>
                   <Stack spacing={3}>
                     <ChooseAvatar setAvatar={setAvatar} />

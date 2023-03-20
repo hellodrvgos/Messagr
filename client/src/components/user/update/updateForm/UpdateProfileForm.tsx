@@ -39,6 +39,7 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
     firstName: string;
     lastName: string;
     email: string;
+    password: string;
     location: string;
     phone: string;
     role: string;
@@ -49,6 +50,7 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
     firstName: `${userInfoDetails.firstName}`,
     lastName: `${userInfoDetails.lastName}`,
     email: `${userInfoDetails.email}`,
+    password: `${userInfoDetails.location}`,
     location: `${userInfoDetails.location}`,
     phone: `${userInfoDetails.phone}`,
     role: `${userInfoDetails.role}`,
@@ -73,6 +75,7 @@ export default function UpdateProfileForm({avatar, setAvatar}: Avatar) {
             ? `${userInfoDetails.lastName}`
             : values.lastName,
         email: `${userInfoDetails.email}`,
+        password: values.password,
         location:
           values.location === ""
             ? `${userInfoDetails.location}`

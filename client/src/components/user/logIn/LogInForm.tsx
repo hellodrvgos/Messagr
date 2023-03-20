@@ -155,7 +155,7 @@ export default function LoginForm() {
                   ) : null}
                   <Stack spacing={3}>
                     <Link
-                      href="/reset-password"
+                      href="/forgotpassword"
                       variant="body2"
                       sx={{ textAlign: "left", mt: 2 }}
                     >

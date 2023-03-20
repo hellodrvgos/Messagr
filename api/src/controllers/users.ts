@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 
@@ -23,6 +23,8 @@ export const createUserController = async (req: Request, res: Response) => {
       location,
       gitHub,
       phone,
+      secretQuestion,
+      answer,
     } = req.body;
 
     const saltRounds = await bcrypt.genSalt(10);
@@ -40,6 +42,8 @@ export const createUserController = async (req: Request, res: Response) => {
       location: location,
       gitHub: gitHub,
       phone: phone,
+      secretQuestion: secretQuestion,
+      answer: answer
     });
 
     const user = await UserServices.findUserByEmail(email);
@@ -221,6 +225,60 @@ export const updateUserByEmailController = async (
     const userInfo = req.body;
     const updateUser = await UserServices.updateUserByEmail(email, userInfo);
     res.status(200).json(updateUser);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+export const resetPasswordController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const userData = await UserServices.findUserByEmail(req.body.email);
+
+    if (!userData) {
+      res.json({ message: `No user with email ${req.body.email}` });
+      return;
+    } else if (userData.answer === req.body.answer) {
+      const userId = userData._id
+      let password = req.body.password;
+      const saltRounds = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      password = hashedPassword;
+
+      const newDetail = { ...req.body, password };
+
+      const updatedDetail = await UserServices.updateUserDetail(
+        userId,
+        newDetail
+      );
+
+      res.status(200).json({ message: "Password changed!" });
+      return;
+    }
+      res.json({ message: "Wrong answer." });
+      return;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const resetPasswordController1 = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const userData = await UserServices.findUserByEmail(req.body.email);
+
+    if (!userData) {
+      res.json({ message: `No user with email ${req.body.email}` });
+      return;
+    } 
+      res.json(userData.secretQuestion);
+      return;
+
   } catch (error) {
     console.log(error);
   }

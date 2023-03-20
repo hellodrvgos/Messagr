@@ -1,10 +1,22 @@
-/* LOGIN */
+.logo {
+  border-right: .1em solid rgb(255, 255, 255); /* The typwriter cursor */
+  animation: 
+    blink-caret 1.3s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: rgb(255, 255, 255); border-width: 3px; }
+}
+
 .login-page {
   height: 100vh;
   background-image: url("../src/assets/images/bg/home-chatapp-bg.png");
   background-repeat: no-repeat;
-  background-position: right center;
-  background-size: 50%;
+  background-position: right;
+  /* background-position-x: 800px;
+  background-position-y: 100px; */
+  background-size: 48%;
   display: flex;
   flex-direction: column;
 }
@@ -15,7 +27,7 @@
   border-radius: 20px;
   padding: 10px 10px 30px;
   margin-left: 230px;
-  margin-top: 90px;
+  margin-top: 70px;
   box-shadow: 0px 0px 30px #5521b595;
 }
 .register-form-wrapper {
@@ -25,7 +37,7 @@
   border-radius: 20px;
   padding: 10px 10px 30px;
   margin-left: 100px;
-  margin-top: 90px;
+  margin-top: 70px;
   box-shadow: 0px 0px 30px #5521b595;
 }
 .update-page {
@@ -44,17 +56,27 @@
   background-color: aliceblue;
   border-radius: 20px;
   margin-left: 100px;
-  margin-top: 90px;
+  margin-top: 70px;
   box-shadow: 0px 0px 30px #5521b595;
 }
 .userlist-page {
   height: 100vh;
   background-image: url("../src/assets/images/bg/update-chatapp-bg.png");
   background-repeat: no-repeat;
-  background-position: right center;
-  background-size: 50%;
+  /* background-position: right; */
+  background-position-x: 115%;
+  background-position-y: 60%;
+  background-size: 54%;
   display: flex;
   flex-direction: column;
+}
+
+.chat-page {
+  /* height: 100vh; */
+  background-image: url("../src/assets/images/bg/chat-chatapp-bg.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position-y: -80%;
 }
 
 .App {
