@@ -1,6 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 import axios from "axios";
+import dotenv from "dotenv";
 
 import {
   createUserController,
@@ -14,6 +15,9 @@ import {
   resetPasswordController,
   resetPasswordController1
 } from "../controllers/users";
+
+dotenv.config();
+const CHAT_ENGINE_KEY = process.env.CHAT_ENGINE_KEY as string;
 
 const router = Router();
 
@@ -73,7 +77,7 @@ router.post("/loginChat", async (req, res) => {
     const r = await axios.put(
       "https://api.chatengine.io/users/",
       { username: username, secret: username, first_name: username },
-      { headers: { "Private-Key": "4f5e6f97-e17a-42f4-9759-5d23190bea39" } }
+      { headers: { "Private-Key": CHAT_ENGINE_KEY } }
     );
     return res.status(r.status).json(r.data);
   } catch (error) {

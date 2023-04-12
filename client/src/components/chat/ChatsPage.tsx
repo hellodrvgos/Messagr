@@ -29,7 +29,8 @@ const ChatsPage = (username: User) => {
     .catch((e) => console.log(e, "error"));
 
   const chatProps = useMultiChatLogic(
-    "0b414e0f-4fb4-4dc3-bae8-3541406bf83d",
+    //project id
+    "59f46d8d-3871-4a05-a785-de39bea1afef",
     username.firstName,
     //secret
     username.firstName
