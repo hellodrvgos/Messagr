@@ -37,16 +37,16 @@ This project was focused on creating a Full-stack application that included a us
 
 ### Built With
 
-* [![HTML5][HTML5]]
-* [![CSS3][CSS3]]
-* [![TypeScript][TypeScript]]
-* [![Material-UI][Material-UI]]
-* [![React][React.js]]
-* [![Redux][Redux]]
-* [![React Router][React Router]]
-* [![Node.js][Node.js]]
-* [![Express.js][Express.js]]
-* [![MongoDB][MongoDB]]
+* ![HTML5][HTML5]
+* ![CSS3][CSS3]
+* ![TypeScript][TypeScript]
+* ![Material-UI][Material-UI]
+* ![React][React.js]
+* ![Redux][Redux]
+* ![React Router][React Router]
+* ![Node.js][Node.js]
+* ![Express.js][Express.js]
+* ![MongoDB][MongoDB]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
